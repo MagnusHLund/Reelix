@@ -1,0 +1,12 @@
+{
+  "folders": [
+    {
+      "path": "./../reelix.frontend/reelix.website/",
+      "name": "Reelix Frontend"
+    },
+    {
+      "path": "./../.git/"
+    }
+  ],
+  "settings": {}
+}

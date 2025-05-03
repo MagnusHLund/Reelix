@@ -1,0 +1,18 @@
+.dropdown {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  padding-right: 5rem;
+  width: 100%;
+
+  &.transparent {
+    background-color: transparent;
+  }
+  &:hover {
+    background-color: rgba($color: #fff, $alpha: 0.1);
+  }
+}
