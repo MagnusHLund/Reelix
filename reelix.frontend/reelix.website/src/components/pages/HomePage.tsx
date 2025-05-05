@@ -1,4 +1,4 @@
-import Header from '../layout/common/Header'
+import Header from '../layout/Header/Header'
 
 const HomePage: React.FC = () => {
   return (
