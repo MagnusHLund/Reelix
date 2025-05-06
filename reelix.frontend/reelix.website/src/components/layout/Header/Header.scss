@@ -6,12 +6,14 @@
   background-color: $secondary-color;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: calc(100% - 2rem);
+  height: 4rem;
 
   &--small {
     gap: 0.5rem;
     flex: auto 1;
+    height: 2rem;
 
-    .header__media-types {
+    .header__links {
       flex-grow: 1;
       justify-content: space-evenly;
     }
@@ -20,7 +22,7 @@
   &--medium {
     gap: 1rem;
 
-    .header__media-types {
+    .header__links {
       justify-content: center;
       gap: 0.5rem;
     }
@@ -28,15 +30,46 @@
 
   &--large {
     gap: 1rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
 
-    .header__media-types {
+    .header__links {
       justify-content: center;
       gap: 1rem;
     }
+
+    .header__left,
+    .header__right {
+      min-width: 236px; // Make more responsive, by using rem or percentage. Keep in mind that the width should be the same as the logo and dropdown.
+    }
+
+    .header__left {
+      justify-content: flex-start;
+    }
+
+    .header__right {
+      justify-content: flex-end;
+    }
   }
 
-  .header__burger-menu {
-    flex-shrink: 0;
+  .header__server-dropdown {
+    min-width: 178px; // Make responsive and ensure the dropdown can fit text with 20 characters inside it.
+  }
+
+  .header__link {
+    color: $accent-color;
+    font-weight: bold;
+    text-decoration: none;
+    text-wrap: nowrap;
+  }
+
+  .header__button {
+    padding: 0;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   > * {

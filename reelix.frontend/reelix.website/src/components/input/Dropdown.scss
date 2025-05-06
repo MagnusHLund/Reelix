@@ -6,13 +6,22 @@
   border: 1px solid black;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
-  padding-right: 5rem;
+  padding-right: 2rem;
   width: 100%;
+
+  background-image: url('/black.png');
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1rem;
 
   &.transparent {
     background-color: transparent;
   }
   &:hover {
     background-color: rgba($color: #fff, $alpha: 0.1);
+  }
+
+  &__option {
+    width: 10%;
   }
 }

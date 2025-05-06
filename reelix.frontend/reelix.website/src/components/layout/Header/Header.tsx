@@ -1,33 +1,47 @@
 import Image from '../common/Image'
 import './Header.scss'
 import Dropdown from '../../input/Dropdown'
-import MediaTypes from './MediaTypes'
-import { useEffect } from 'react'
 import useWindowDimensions from '../../../hooks/useWindowDimensions'
 import Button from '../../input/Button'
+import { useState } from 'react'
+import SideMenu from '../menus/SideMenu'
+import { mediaLibraryNavigation } from '../../../utils/navigationUtils'
+import { changeServer } from '../../../services/serverService'
+
 const Header: React.FC = () => {
+  const [sideMenuOpen, setSideMenuOpen] = useState(false)
   const { sizeCategory } = useWindowDimensions()
 
-  const dropdownOptions = [
-    { value: 'option1', label: 'Option 1' },
+  // Load the servers and store in redux global state
+  const serverOptions = [
+    { value: 'option1', label: 'Option 1' }, // 20 character limit on server name
     { value: 'option2', label: 'Option 2' },
   ]
 
-  useEffect(() => {}, [sizeCategory])
+  const handleBurgerMenuClick = () => {
+    setSideMenuOpen((prev) => !prev)
+  }
 
   return (
     <div className={`header__container header__container--${sizeCategory}`}>
       {sizeCategory === 'small' && (
         <>
-          <Button className="header__burger-menu">
+          <Button
+            className="header__button"
+            transparent
+            onClick={handleBurgerMenuClick}
+          >
             <Image src="/black.png" alt="burger menu" width="30" height="30" />
           </Button>
-          <MediaTypes className="header__media-types" />
+          <Button transparent className="header__logo">
+            <Image src="/black.png" alt="Search" width="30" height="30" />
+          </Button>
+          {sideMenuOpen && <SideMenu />}
         </>
       )}
       {sizeCategory !== 'small' && (
         <>
-          <div>
+          <div className="header__left">
             <Image
               src="/black.png"
               alt="Reelix Logo"
@@ -36,16 +50,30 @@ const Header: React.FC = () => {
               height="50"
             />
             <Dropdown
-              options={dropdownOptions}
-              onChange={(value) => console.log(value)}
+              options={serverOptions}
+              onChange={changeServer}
               className="header__server-dropdown"
               transparent
             />
           </div>
-          <MediaTypes className="header__media-types" />
+          <div className={`header__links`}>
+            {mediaLibraryNavigation.map((type) => (
+              <a
+                key={type.value}
+                className="header__link"
+                href={`#${type.value}`}
+              >
+                {type.label}
+              </a>
+            ))}
+          </div>
           <div className="header__right">
-            <Image src="/black.png" alt="Search" width="50" height="50" />
-            <Image src="/black.png" alt="User" width="50" height="50" />
+            <Button transparent className="header__button">
+              <Image src="/black.png" alt="Search" width="50" height="50" />
+            </Button>
+            <Button transparent className="header__button">
+              <Image src="/black.png" alt="User" width="50" height="50" />
+            </Button>
           </div>
         </>
       )}
