@@ -1,12 +1,12 @@
-import Image from '../common/Image'
 import './Header.scss'
-import Dropdown from '../../input/Dropdown'
-import useWindowDimensions from '../../../hooks/useWindowDimensions'
-import Button from '../../input/Button'
 import { useState } from 'react'
+import Image from '../common/Image'
+import Button from '../../input/Button'
 import SideMenu from '../menus/SideMenu'
-import { mediaLibraryNavigation } from '../../../utils/navigationUtils'
+import Dropdown from '../../input/Dropdown'
 import { changeServer } from '../../../services/serverService'
+import useWindowDimensions from '../../../hooks/useWindowDimensions'
+import { mediaLibraryNavigation } from '../../../utils/navigationUtils'
 
 const Header: React.FC = () => {
   const [sideMenuOpen, setSideMenuOpen] = useState(false)
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
   }
 
   return (
-    <div className={`header__container header__container--${sizeCategory}`}>
+    <header className={`header__container header__container--${sizeCategory}`}>
       {sizeCategory === 'small' && (
         <>
           <Button
@@ -77,7 +77,7 @@ const Header: React.FC = () => {
           </div>
         </>
       )}
-    </div>
+    </header>
   )
 }
 

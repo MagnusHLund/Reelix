@@ -1,8 +1,10 @@
-import { NavLink } from 'react-router-dom'
 import './SideMenu.scss'
+import { NavLink } from 'react-router-dom'
 import Dropdown from '../../input/Dropdown'
-import { mediaLibraryNavigation } from '../../../utils/navigationUtils'
+import MenuSection from '../sections/MenuSection'
+import NavigationSection from '../sections/NavigationSection'
 import { changeServer } from '../../../services/serverService'
+import { mediaLibraryNavigation } from '../../../utils/navigationUtils'
 
 const SideMenu: React.FC = () => {
   // Load the servers and store in redux global state
@@ -13,8 +15,7 @@ const SideMenu: React.FC = () => {
 
   return (
     <div className="side-menu__container">
-      <div>
-        <h1>Media libraries</h1>
+      <NavigationSection title="Media libraries">
         {mediaLibraryNavigation.map((item) => {
           return (
             <a
@@ -26,22 +27,20 @@ const SideMenu: React.FC = () => {
             </a>
           )
         })}
-      </div>
-      <div>
-        <h1>Settings</h1>
+      </NavigationSection>
+      <NavigationSection title="Settings">
         <NavLink to="/settings" className="side-menu__link">
           Settings
         </NavLink>
-      </div>
-      <div>
-        <h1>Server</h1>
+      </NavigationSection>
+      <MenuSection title="Settings">
         <Dropdown
           options={serverOptions}
           onChange={changeServer}
           className="side-menu__server-dropdown"
           transparent
         />
-      </div>
+      </MenuSection>
     </div>
   )
 }

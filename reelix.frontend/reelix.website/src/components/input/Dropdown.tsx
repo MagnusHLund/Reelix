@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import cn from 'classnames'
 import './Dropdown.scss'
+import cn from 'classnames'
+import { useState } from 'react'
 
 interface DropdownProps {
   options: { value: string; label: string }[]

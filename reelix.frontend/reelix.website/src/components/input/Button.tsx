@@ -1,5 +1,5 @@
-import cn from 'classnames'
 import './Button.scss'
+import cn from 'classnames'
 
 interface ButtonProps {
   children: React.ReactNode
