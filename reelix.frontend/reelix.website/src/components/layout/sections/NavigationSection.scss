@@ -1,0 +1,25 @@
+.navigation-section__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 90%;
+
+  .navigation-section__title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .navigation-section__items {
+    display: flex;
+    width: 100%;
+    &.horizontal {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &.vertical {
+      flex-direction: column;
+    }
+  }
+}

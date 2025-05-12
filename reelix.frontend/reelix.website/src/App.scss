@@ -3,6 +3,14 @@
   padding: 0;
 }
 
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
 .site__container {
   display: flex;
   flex-direction: column;

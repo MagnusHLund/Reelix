@@ -33,7 +33,7 @@ const SideMenu: React.FC = () => {
           Settings
         </NavLink>
       </NavigationSection>
-      <MenuSection title="Settings">
+      <MenuSection title="Server">
         <Dropdown
           options={serverOptions}
           onChange={changeServer}

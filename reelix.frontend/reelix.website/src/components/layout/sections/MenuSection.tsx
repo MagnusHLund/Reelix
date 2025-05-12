@@ -1,16 +1,33 @@
 import BaseSectionProps from './BaseSectionProps'
+import cn from 'classnames'
+import './MenuSection.scss'
 
-type MenuSectionProps = BaseSectionProps
+interface MenuSectionProps extends BaseSectionProps {
+  direction?: 'vertical' | 'horizontal'
+}
 
 const MenuSection: React.FC<MenuSectionProps> = ({
   title,
   children,
   className = '',
+  direction = 'vertical',
 }) => {
   return (
-    <div className={`menu-section__container ${className}`}>
-      <h1 className="menu-section__title">{title}</h1>
-      <div className="menu-section__content">{children}</div>
+    <div
+      className={cn('menu-section__container', className, {
+        'menu-section__container--vertical': direction === 'vertical',
+        'menu-section__container--horizontal': direction === 'horizontal',
+      })}
+    >
+      <p className="menu-section__title">{title}</p>
+      <div
+        className={cn(`menu-section__items ${className}`, {
+          vertical: direction === 'vertical',
+          horizontal: direction === 'horizontal',
+        })}
+      >
+        {children}
+      </div>
     </div>
   )
 }

@@ -1,16 +1,28 @@
 import BaseSectionProps from './BaseSectionProps'
+import cn from 'classnames'
+import './NavigationSection.scss'
 
-type NavigationSectionProps = BaseSectionProps
+interface NavigationSectionProps extends BaseSectionProps {
+  direction?: 'vertical' | 'horizontal'
+}
 
 const NavigationSection: React.FC<NavigationSectionProps> = ({
   title,
   children,
   className = '',
+  direction = 'vertical',
 }) => {
   return (
-    <nav className={`content-section__container ${className}`}>
-      <h1 className="content-section__title">{title}</h1>
-      <ul className="content-section__content">{children}</ul>
+    <nav className={`navigation-section__container ${className}`}>
+      <p className="navigation-section__title">{title}</p>
+      <ul
+        className={cn(`navigation-section__items ${className}`, {
+          vertical: direction === 'vertical',
+          horizontal: direction === 'horizontal',
+        })}
+      >
+        {children}
+      </ul>
     </nav>
   )
 }

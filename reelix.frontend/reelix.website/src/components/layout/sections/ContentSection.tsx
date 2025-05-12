@@ -10,7 +10,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
   return (
     <section className={`content-section__container ${className}`}>
       <h1 className="content-section__title">{title}</h1>
-      <div className="content-section__content">{children}</div>
+      <div className="content-section__items">{children}</div>
     </section>
   )
 }
