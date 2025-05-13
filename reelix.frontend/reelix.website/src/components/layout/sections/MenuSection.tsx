@@ -3,6 +3,7 @@ import cn from 'classnames'
 import './MenuSection.scss'
 
 interface MenuSectionProps extends BaseSectionProps {
+  title: string
   direction?: 'vertical' | 'horizontal'
 }
 

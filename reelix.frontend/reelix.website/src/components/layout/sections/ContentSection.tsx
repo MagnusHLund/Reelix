@@ -1,9 +1,12 @@
 import BaseSectionProps from './BaseSectionProps'
 
-type ContentSectionProps = BaseSectionProps
+interface ContentSectionProps extends BaseSectionProps {
+  title?: string
+  children: React.ReactNode
+}
 
 const ContentSection: React.FC<ContentSectionProps> = ({
-  title,
+  title = '',
   children,
   className = '',
 }) => {

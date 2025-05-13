@@ -3,20 +3,12 @@ import { useState } from 'react'
 import Image from '../common/Image'
 import Button from '../../input/Button'
 import SideMenu from '../menus/SideMenu'
-import Dropdown from '../../input/Dropdown'
-import { changeServer } from '../../../services/serverService'
 import useWindowDimensions from '../../../hooks/useWindowDimensions'
 import { mediaLibraryNavigation } from '../../../utils/navigationUtils'
 
 const Header: React.FC = () => {
   const [sideMenuOpen, setSideMenuOpen] = useState(false)
   const { sizeCategory } = useWindowDimensions()
-
-  // Load the servers and store in redux global state
-  const serverOptions = [
-    { value: 'option1', label: 'Option 1' }, // 20 character limit on server name
-    { value: 'option2', label: 'Option 2' },
-  ]
 
   const handleBurgerMenuClick = () => {
     setSideMenuOpen((prev) => !prev)
@@ -48,12 +40,6 @@ const Header: React.FC = () => {
               className="header__logo"
               width="50"
               height="50"
-            />
-            <Dropdown
-              options={serverOptions}
-              onChange={changeServer}
-              className="header__server-dropdown"
-              transparent
             />
           </div>
           <div className={`header__links`}>

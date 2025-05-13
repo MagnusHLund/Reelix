@@ -5,6 +5,8 @@ import LoginPage from '../pages/LoginPage'
 import SettingsPage from '../pages/SettingsPage'
 
 const Router: React.FC = () => {
+  // TODO: Auto redirect to /#home if no hash is present and the path is only /
+
   return (
     <Routes>
       <Route path="/" element={<ContentFeedPage />} />
@@ -14,5 +16,4 @@ const Router: React.FC = () => {
     </Routes>
   )
 }
-
 export default Router

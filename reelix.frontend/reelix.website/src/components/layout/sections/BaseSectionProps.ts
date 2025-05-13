@@ -1,5 +1,5 @@
 export default interface BaseSectionProps {
-  title: string
   children: React.ReactNode
+  title?: string
   className?: string
 }

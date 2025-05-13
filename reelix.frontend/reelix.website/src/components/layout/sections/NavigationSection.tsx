@@ -3,6 +3,7 @@ import cn from 'classnames'
 import './NavigationSection.scss'
 
 interface NavigationSectionProps extends BaseSectionProps {
+  title: string
   direction?: 'vertical' | 'horizontal'
 }
 
