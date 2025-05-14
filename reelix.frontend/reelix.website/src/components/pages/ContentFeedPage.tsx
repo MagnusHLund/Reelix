@@ -1,9 +1,8 @@
 import { contentFeedSectionsPerPage } from '../../utils/contentUtils'
 import ContentSection from '../layout/sections/ContentSection'
+import MediaThumbnail from '../layout/media/MediaThumbnail'
 import { useLocation } from 'react-router-dom'
 import Header from '../layout/Header/Header'
-import skeleton from 'react-loading-skeleton'
-import Skeleton from 'react-loading-skeleton'
 
 type ContentFeedType = keyof typeof contentFeedSectionsPerPage
 
@@ -21,7 +20,9 @@ const ContentFeedPage: React.FC = () => {
         </ContentSection>
       ))}
       {contentCategories.length === 0 && (
-        <ContentSection>{Skeleton({ count: 14 })}</ContentSection>
+        <ContentSection>
+          <MediaThumbnail />
+        </ContentSection>
       )}
     </div>
   )
