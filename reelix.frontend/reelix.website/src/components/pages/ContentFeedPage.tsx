@@ -16,7 +16,7 @@ const ContentFeedPage: React.FC = () => {
       <Header />
       {contentCategories.map((category) => (
         <ContentSection title={category} key={category}>
-          {category}
+          <MediaThumbnail />
         </ContentSection>
       ))}
       {contentCategories.length === 0 && (

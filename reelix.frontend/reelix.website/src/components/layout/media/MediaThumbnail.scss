@@ -1,10 +1,15 @@
-.media-thumbnail_container {
-  .media-thumbnail_image {
-    .media-thumbnail_info {
-      .media-thumbnail_title {
-      }
-      .media-thumbnail_release-year {
-      }
+.media-thumbnail__container {
+  width: fit-content;
+  .media-thumbnail__image {
+  }
+  .media-thumbnail__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .media-thumbnail__title {
+    }
+    .media-thumbnail__release-year {
     }
   }
 }

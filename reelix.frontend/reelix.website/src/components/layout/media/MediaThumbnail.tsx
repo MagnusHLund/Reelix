@@ -7,13 +7,17 @@ const MediaThumbnail: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(true)
 
   return (
-    <div className="media-thumbnail_container">
+    <div className="media-thumbnail__container">
       {isLoading && (
         <>
-          <Skeleton className="media-thumbnail_image" />
-          <div className="media-thumbnail_info">
-            <Skeleton className="media-thumbnail_title" />
-            <Skeleton className="media-thumbnail_release-year" />
+          <Skeleton
+            className="media-thumbnail__image"
+            height="175"
+            width="250"
+          />
+          <div className="media-thumbnail__info">
+            <Skeleton className="media-thumbnail__title" />
+            <Skeleton className="media-thumbnail__release-year" />
           </div>
         </>
       )}
@@ -21,13 +25,13 @@ const MediaThumbnail: React.FC = () => {
         <Image
           src="/black.png"
           alt="Media Thumbnail"
-          className="media-thumbnail_image"
-          width="200"
-          height="200"
+          className="media-thumbnail__image"
+          height="175"
+          width="250"
         />
-        <div className="media-thumbnail_info">
-          <h3 className="media-thumbnail_title">Media Title</h3>
-          <p className="media-thumbnail_release-year">Media Release Year</p>
+        <div className="media-thumbnail__info">
+          <h3 className="media-thumbnail__title">Media Title</h3>
+          <p className="media-thumbnail__release-year">Media Release Year</p>
         </div>
       </div>
     </div>
