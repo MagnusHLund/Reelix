@@ -1,0 +1,13 @@
+*::-webkit-scrollbar {
+  height: 8rem;
+  background: #222;
+}
+*::-webkit-scrollbar-thumb {
+  background: $accent-color;
+  border-radius: 1rem;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: $accent-color;
+}
+
+// Maybe remove? How much am I leaning into scroll bars?

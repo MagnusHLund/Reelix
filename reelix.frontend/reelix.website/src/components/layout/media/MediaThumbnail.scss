@@ -1,6 +1,8 @@
 .media-thumbnail__container {
   width: fit-content;
   .media-thumbnail__image {
+    height: 175px;
+    width: 250px;
   }
   .media-thumbnail__info {
     display: flex;
@@ -8,8 +10,10 @@
     justify-content: center;
     align-items: center;
     .media-thumbnail__title {
+      width: 90%;
     }
     .media-thumbnail__release-year {
+      width: 90%;
     }
   }
 }

@@ -1,4 +1,6 @@
 import cn from 'classnames'
+import { useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
 
 interface ImageProps {
   src: string
@@ -15,6 +17,18 @@ const Image: React.FC<ImageProps> = ({
   height,
   className = '',
 }) => {
+  const [hasError, setHasError] = useState(false)
+
+  if (!src || hasError) {
+    return (
+      <Skeleton
+        width={width}
+        height={height}
+        className={cn('image', className)}
+      />
+    )
+  }
+
   return (
     <img
       src={src}
@@ -22,6 +36,7 @@ const Image: React.FC<ImageProps> = ({
       width={width}
       height={height}
       className={cn('image', className)}
+      onError={() => setHasError(true)}
     />
   )
 }

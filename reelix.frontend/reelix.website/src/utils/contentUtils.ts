@@ -1,8 +1,8 @@
 export const contentFeedSectionsPerPage = {
-  home: ['For you', 'Continue watching', 'Trending', 'Newly added'],
+  home: ['Continue watching', 'For you', 'Trending', 'Recently added'],
   movies: [],
   series: [],
-  genres: ['Action', 'Comedy', 'Drama', 'Horror'], // Pull from API instead
+  genres: ['Action', 'Comedy', 'Drama', 'Horror'], // Pull from API instead, to get all existing genres on server
   collections: [],
   watchList: [],
 }
