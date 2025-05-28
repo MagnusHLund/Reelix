@@ -8,15 +8,16 @@ import { mediaLibraryNavigation } from '../../../utils/navigationUtils'
 
 const Header: React.FC = () => {
   const [sideMenuOpen, setSideMenuOpen] = useState(false)
-  const { sizeCategory } = useWindowDimensions()
+  const { screenSize } = useWindowDimensions()
 
   const handleBurgerMenuClick = () => {
     setSideMenuOpen((prev) => !prev)
   }
+  // Isn't a header a kind of a menu? maybe move this to the menus folder?
 
   return (
-    <header className={`header__container header__container--${sizeCategory}`}>
-      {sizeCategory === 'small' && (
+    <header className={`header__container header__container--${screenSize}`}>
+      {screenSize === 'small' && (
         <>
           <Button
             className="header__button"
@@ -31,7 +32,7 @@ const Header: React.FC = () => {
           {sideMenuOpen && <SideMenu />}
         </>
       )}
-      {sizeCategory !== 'small' && (
+      {screenSize !== 'small' && (
         <>
           <div className="header__left">
             <Image

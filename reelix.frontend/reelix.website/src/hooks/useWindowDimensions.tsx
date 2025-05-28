@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 type WindowDimensions = {
   width: number
   height: number
-  sizeCategory: 'small' | 'medium' | 'large'
+  screenSize: 'small' | 'medium' | 'large'
 }
 
 const getWindowDimensions = () => {
@@ -40,6 +40,6 @@ export default function useWindowDimensions(): WindowDimensions {
 
   return {
     ...windowDimensions,
-    sizeCategory: getSizeCategory(windowDimensions.width),
+    screenSize: getSizeCategory(windowDimensions.width),
   }
 }

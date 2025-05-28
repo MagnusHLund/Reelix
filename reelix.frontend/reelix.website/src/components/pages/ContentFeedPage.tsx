@@ -23,16 +23,14 @@ const ContentFeedPage: React.FC = () => {
       <Header />
       <div className="content-feed__container">
         {contentCategories.map((category) => (
-          <ContentSection
-            title={category}
-            key={category}
-            scrollDirection="horizontal"
-          >
+          <ContentSection title={category} key={category}>
             {mediaThumbnails}
           </ContentSection>
         ))}
         {contentCategories.length === 0 && (
-          <ContentSection>{mediaThumbnails}</ContentSection>
+          <ContentSection scrollDirection="vertical">
+            {mediaThumbnails}
+          </ContentSection>
         )}
       </div>
     </div>

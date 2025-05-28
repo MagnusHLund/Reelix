@@ -2,6 +2,7 @@ import React from 'react'
 import './MediaThumbnail.scss'
 import Image from '../common/Image'
 import Skeleton from 'react-loading-skeleton'
+import Button from '../../input/Button'
 
 interface MediaThumbnailProps {
   title: string
@@ -15,7 +16,11 @@ const MediaThumbnail: React.FC<MediaThumbnailProps> = ({
   imageUrl,
 }) => {
   return (
-    <div className="media-thumbnail__container">
+    <Button
+      className="media-thumbnail__container"
+      transparent
+      onClick={() => {}}
+    >
       <Image
         src={imageUrl}
         alt="Media Thumbnail"
@@ -29,7 +34,7 @@ const MediaThumbnail: React.FC<MediaThumbnailProps> = ({
           {releaseYear || <Skeleton />}
         </span>
       </div>
-    </div>
+    </Button>
   )
 }
 

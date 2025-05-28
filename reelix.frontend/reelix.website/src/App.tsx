@@ -1,6 +1,5 @@
 import Router from './components/navigation/Router'
 import 'react-loading-skeleton/dist/skeleton.css'
-import './assets/styles/scrollbars.scss'
 import './App.scss'
 
 function App() {
