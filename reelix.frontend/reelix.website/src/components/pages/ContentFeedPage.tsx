@@ -23,12 +23,19 @@ const ContentFeedPage: React.FC = () => {
       <Header />
       <div className="content-feed__container">
         {contentCategories.map((category) => (
-          <ContentSection title={category} key={category}>
+          <ContentSection
+            key={category.value}
+            title={category.label}
+            navigateTo={category.value}
+          >
             {mediaThumbnails}
           </ContentSection>
         ))}
         {contentCategories.length === 0 && (
-          <ContentSection scrollDirection="vertical">
+          <ContentSection
+            scrollDirection="vertical"
+            title={contentFeedType.toString().replace('-', ' ')}
+          >
             {mediaThumbnails}
           </ContentSection>
         )}

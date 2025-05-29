@@ -2,6 +2,7 @@ import useWindowDimensions from '../../../hooks/useWindowDimensions'
 import ScrollIndicator from '../indicators/ScrollIndicator'
 import { useEffect, useRef, useState } from 'react'
 import BaseSectionProps from './BaseSectionProps'
+import Skeleton from 'react-loading-skeleton'
 import Button from '../../input/Button'
 import './ContentSection.scss'
 import cn from 'classnames'
@@ -10,6 +11,7 @@ interface ContentSectionProps extends BaseSectionProps {
   title?: string
   children: React.ReactNode
   scrollDirection?: 'horizontal' | 'vertical'
+  navigateTo?: string
 }
 
 const ContentSection: React.FC<ContentSectionProps> = ({
@@ -17,6 +19,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
   children,
   className = '',
   scrollDirection = 'horizontal',
+  navigateTo,
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null)
   const { screenSize } = useWindowDimensions()
@@ -58,22 +61,33 @@ const ContentSection: React.FC<ContentSectionProps> = ({
     }
   }
 
-  // TODO: Maybe implement a small scroll indicator (pretty readonly scroll bar) on the right side, same height as title. Remove the actual scrollbar, when implementing this.
-  // TODO: Fix buttons loading in much slower than everything else.
+  // TODO: Fix buttons and scroll indicator loading in much slower than everything else.
   return (
     <section className={`content-section__container ${className}`}>
       <div className="content-section__header-wrapper">
-        <a
-          className="content-section__title"
-          href={`#${title}` /* TODO: Make better fragment links */}
-        >
-          {title}
-        </a>
-        {screenSize !== 'small' && (
+        {scrollDirection === 'horizontal' && (
+          <a
+            className="content-section__title"
+            href={navigateTo ? `#${navigateTo}` : `#${title}`}
+          >
+            {title}
+          </a>
+        )}
+        {scrollDirection === 'vertical' && (
+          <h1 className="content-section__title">{title}</h1>
+        )}
+        {screenSize !== 'small' && scrollDirection === 'horizontal' && (
           <ScrollIndicator
             className="content-section__scroll-indicator"
             scrollRef={scrollRef}
           />
+        )}
+        {screenSize !== 'small' && scrollDirection === 'vertical' && (
+          <p className="content-section__media-count">
+            {undefined /* TODO: Total amount of items in database. Not those displayed. */ || (
+              <Skeleton />
+            )}
+          </p>
         )}
       </div>
       <div className={cn('content-section__content-wrapper')}>

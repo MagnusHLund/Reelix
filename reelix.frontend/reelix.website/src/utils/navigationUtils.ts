@@ -1,4 +1,9 @@
-export const mediaLibraryNavigation = [
+export type NavigationItem = {
+  label: string
+  value: string
+}
+
+export const mediaLibraryNavigation: NavigationItem[] = [
   { label: 'Home', value: 'home' },
   { label: 'Movies', value: 'movies' },
   { label: 'Series', value: 'series' },
@@ -7,4 +12,11 @@ export const mediaLibraryNavigation = [
   { label: 'Watch list', value: 'watchlist' },
 ]
 
-export const settingsNavigation = []
+export const contentFeedPageSectionNavigation: NavigationItem[] = [
+  { label: 'Continue watching', value: 'continue-watching' },
+  { label: 'For you', value: 'for-you' },
+  { label: 'Trending', value: 'trending' },
+  { label: 'Recently added', value: 'recently-added' },
+]
+
+export const settingsNavigation: NavigationItem[] = []

@@ -6,19 +6,28 @@
     width: 100%;
     margin-bottom: 0.5rem;
     flex-wrap: nowrap;
+
     .content-section__title {
       font-size: xx-large;
       color: $accent-color;
-      &::after {
-        content: '>';
-        font-size: x-large;
-        font-weight: bolder;
-        margin-left: 0.5rem;
-      }
     }
+
+    a.content-section__title::after {
+      content: '>';
+      font-size: x-large;
+      font-weight: bolder;
+      margin-left: 0.5rem;
+    }
+
     .content-section__scroll-indicator {
       width: 20%;
       margin-right: 3rem;
+    }
+
+    .content-section__media-count {
+      margin-right: 1.5rem;
+      width: 10%;
+      font-size: x-large;
     }
   }
 
@@ -29,9 +38,9 @@
     width: 100%;
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
+    flex-direction: row;
 
     &.horizontal {
-      flex-direction: row;
       overflow-x: auto;
       overflow-y: hidden;
       flex: 1 1 auto;
@@ -46,10 +55,13 @@
         display: none;
       }
     }
+
     &.vertical {
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       overflow-x: hidden;
       overflow-y: auto;
+      justify-items: center;
     }
   }
 

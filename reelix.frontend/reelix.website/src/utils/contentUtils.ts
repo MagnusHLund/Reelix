@@ -1,8 +1,21 @@
-export const contentFeedSectionsPerPage = {
-  home: ['Continue watching', 'For you', 'Trending', 'Recently added'],
+import {
+  contentFeedPageSectionNavigation,
+  NavigationItem,
+} from './navigationUtils'
+
+export const contentFeedSectionsPerPage: {
+  [key: string]: NavigationItem[]
+} = {
+  home: contentFeedPageSectionNavigation,
   movies: [],
   series: [],
-  genres: ['Action', 'Comedy', 'Drama', 'Horror'], // Pull from API instead, to get all existing genres on server
+  genres: [
+    // TODO: Pull from API instead, to get all existing genres on the server.
+    { label: 'Action', value: 'action' },
+    { label: 'Comedy', value: 'comedy' },
+    { label: 'Drama', value: 'drama' },
+    { label: 'Horror', value: 'horror' },
+  ],
   collections: [],
   watchList: [],
 }
