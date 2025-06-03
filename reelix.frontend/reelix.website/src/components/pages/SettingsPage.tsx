@@ -1,5 +1,7 @@
+import './SettingsPage.scss'
+
 const SettingsPage: React.FC = () => {
-  return <div></div>
+  return <div className="settings__page"></div>
 }
 
 export default SettingsPage

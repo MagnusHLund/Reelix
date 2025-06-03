@@ -1,4 +1,6 @@
 .header__container {
+  position: fixed;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -80,3 +82,12 @@
 }
 
 // TODO: Larger text in header
+
+.header__spacer {
+  height: 6rem;
+  width: 100%;
+
+  &--small {
+    height: 4rem;
+  }
+}
