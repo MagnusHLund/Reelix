@@ -1,21 +1,25 @@
 import './TextInput.scss'
 import { stringToPascalCase } from '../../utils/stringUtils'
 
-interface TextInputProps {
+interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string
   defaultValue?: string
-  onChange?: (value: string) => void
+  className?: string
+  type?: React.HTMLInputTypeAttribute
 }
 
 const TextInput: React.FC<TextInputProps> = ({
   placeholder,
-  defaultValue,
+  defaultValue = '',
+  className = '',
+  type = 'text',
   onChange,
+  ...props
 }) => {
   const id = placeholder ? stringToPascalCase(placeholder) : undefined
 
   return (
-    <div className="text-input">
+    <div className={`text-input ${className}`}>
       {placeholder && (
         <label className="text-input__placeholder" htmlFor={id}>
           {placeholder}
@@ -24,10 +28,12 @@ const TextInput: React.FC<TextInputProps> = ({
       <input
         id={id}
         name={id}
-        type="text"
+        type={type}
         className="text-input__field"
         defaultValue={defaultValue}
-        onChange={(e) => onChange?.(e.target.value)}
+        placeholder=""
+        onChange={(e) => onChange?.(e)}
+        {...props}
       />
     </div>
   )

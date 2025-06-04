@@ -1,6 +1,9 @@
 .button {
   background-color: $accent-color;
   cursor: pointer;
+  padding: 0.6rem;
+  border: 1px solid $secondary-color;
+  border-radius: 1rem;
 
   &.transparent {
     background-color: transparent;

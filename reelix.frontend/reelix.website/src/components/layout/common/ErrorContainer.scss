@@ -1,0 +1,19 @@
+.error-container__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: $secondary-color;
+  padding: 1rem;
+  border: 1px solid $accent-color;
+  border-radius: 1rem;
+  gap: 1rem;
+  .error-container__message-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    .error-container__icon {
+    }
+    .error-container__message {
+    }
+  }
+}

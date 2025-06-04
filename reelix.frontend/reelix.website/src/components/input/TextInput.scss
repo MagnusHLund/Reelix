@@ -1,0 +1,39 @@
+.text-input {
+  padding: 0.5rem;
+  width: 100%;
+
+  .text-input__field {
+    padding: 0.6rem;
+    border: 1px solid $accent-color;
+    border-radius: 1rem;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: transparent; // Hide the default placeholder
+    }
+  }
+
+  .text-input__placeholder {
+    color: $accent-color;
+    position: absolute;
+    margin-left: 1rem;
+    margin-top: 0.6rem;
+    pointer-events: none;
+  }
+
+  &:has(.text-input__field:focus, .text-input__field:not(:placeholder-shown)) {
+    .text-input__placeholder {
+      color: $accent-color;
+      transform: translateY(-1.2rem);
+      z-index: 11000;
+      background-color: white;
+      border: 1px solid $accent-color;
+      padding: 0 5px;
+      border-radius: 1rem;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+.form__container {
+  .form__error-container {
+    margin-bottom: 1rem;
+  }
+  .form__element {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .form__input {
+      width: 100%;
+    }
+    .form__submit-button {
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+// TODO: Fix issue with login form input fields being too wide

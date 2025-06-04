@@ -1,12 +1,15 @@
+import './Form.scss'
 import {
-  useForm,
-  SubmitHandler,
-  FieldValues,
-  FieldError,
   Path,
+  useForm,
+  FieldError,
+  FieldErrors,
+  FieldValues,
+  SubmitHandler,
 } from 'react-hook-form'
 import Button from '../../input/Button'
-import './Form.scss'
+import TextInput from '../../input/TextInput'
+import ErrorContainer from './ErrorContainer'
 
 type FormProps<T extends FieldValues> = {
   onSubmit: SubmitHandler<T>
@@ -18,12 +21,14 @@ type FormProps<T extends FieldValues> = {
     errorMessage?: string
   }[]
   buttonText?: string
+  className?: string
 }
 
 const Form = <T extends FieldValues>({
   onSubmit,
   fields,
   buttonText = 'Submit',
+  className = '',
 }: FormProps<T>) => {
   const {
     register,
@@ -31,34 +36,35 @@ const Form = <T extends FieldValues>({
     formState: { errors },
   } = useForm<T>()
 
+  const formatErrorMessages = (error: FieldErrors<T>): string[] => {
+    return Object.entries(error).map(([field, fieldError]) => {
+      const errorMessage = (fieldError as FieldError)?.message
+      return (
+        errorMessage ||
+        fields.find((f) => f.name === field)?.errorMessage ||
+        'Field is required'
+      )
+    })
+  }
+
   return (
-    <div className="form__container">
+    <div className={`form__container ${className}`}>
       {Object.keys(errors).length > 0 && (
-        <div className="error__box">
-          {Object.entries(errors).map(([field, error]) => (
-            <p key={field} className="error__message">
-              {(error as FieldError)?.message ||
-                fields.find((f) => f.name === field)?.errorMessage ||
-                'Field is required'}
-            </p>
-          ))}
-        </div>
+        <ErrorContainer
+          className="form__error-container"
+          errorMessages={formatErrorMessages(errors)}
+        />
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="form__element">
-        {fields.map(({ name, label, type, validation }) => (
-          <div key={String(name)} className="form__group">
-            <label htmlFor={String(name)} className="form__label">
-              {label}
-            </label>
-            {/* TODO: Use custom Input component. Remove form__group and just use the custom input component directly */}
-            <input
-              type={type}
-              id={String(name)}
-              className="form__input"
-              {...register(name as Path<T>, validation)}
-            />
-          </div>
+        {fields.map(({ name, validation, type }) => (
+          <TextInput
+            key={String(name)}
+            placeholder={String(name)}
+            type={type}
+            className="form__input"
+            {...register(name as Path<T>, validation)}
+          />
         ))}
         <Button type="submit" className="form__submit-button">
           {buttonText}

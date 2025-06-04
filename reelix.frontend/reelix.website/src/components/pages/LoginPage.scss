@@ -1,0 +1,25 @@
+.login__page {
+  display: grid;
+  height: 100vh;
+
+  .login__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    place-self: center;
+    border: 1px solid $accent-color;
+    border-radius: 8px;
+    padding: 2rem;
+    background-color: $primary-color;
+    margin: 5vw;
+
+    .login__title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .login__footer {
+      margin-top: 1rem;
+    }
+  }
+}
