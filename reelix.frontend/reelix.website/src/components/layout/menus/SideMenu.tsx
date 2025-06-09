@@ -9,13 +9,13 @@ const SideMenu: React.FC = () => {
       <NavigationSection title="Media libraries">
         {mediaLibraryNavigation.map((item) => {
           return (
-            <a
-              href={`#${item.value}`}
+            <NavLink
+              to={`#${item.value}`}
               key={item.label}
               className="side-menu__link"
             >
               {item.label}
-            </a>
+            </NavLink>
           )
         })}
       </NavigationSection>

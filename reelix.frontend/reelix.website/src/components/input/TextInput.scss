@@ -1,12 +1,11 @@
 .text-input {
   padding: 0.5rem;
-  width: 100%;
 
   .text-input__field {
     padding: 0.6rem;
     border: 1px solid $accent-color;
     border-radius: 1rem;
-    width: 100%;
+    width: inherit;
 
     &:focus {
       outline: none;
@@ -29,7 +28,7 @@
     .text-input__placeholder {
       color: $accent-color;
       transform: translateY(-1.2rem);
-      z-index: 11000;
+      z-index: 1;
       background-color: white;
       border: 1px solid $accent-color;
       padding: 0 5px;

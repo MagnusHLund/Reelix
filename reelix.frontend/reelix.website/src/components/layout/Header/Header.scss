@@ -43,7 +43,7 @@
 
     .header__left,
     .header__right {
-      min-width: 236px; // TODO: Make more responsive, by using rem or percentage. Keep in mind that the width should be the same as the logo and dropdown.
+      min-width: 25vw;
     }
 
     .header__left {
@@ -55,8 +55,7 @@
     }
   }
 
-  .header__server-dropdown {
-    min-width: 178px; // TODO: Make responsive and ensure the dropdown can fit text with 20 characters inside it.
+  .header__search {
   }
 
   .header__link {

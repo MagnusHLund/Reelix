@@ -3,6 +3,7 @@ import ScrollIndicator from '../indicators/ScrollIndicator'
 import { useEffect, useRef, useState } from 'react'
 import BaseSectionProps from './BaseSectionProps'
 import Skeleton from 'react-loading-skeleton'
+import { NavLink } from 'react-router-dom'
 import Button from '../../input/Button'
 import './ContentSection.scss'
 import cn from 'classnames'
@@ -66,12 +67,12 @@ const ContentSection: React.FC<ContentSectionProps> = ({
     <section className={`content-section__container ${className}`}>
       <div className="content-section__header-wrapper">
         {scrollDirection === 'horizontal' && (
-          <a
+          <NavLink
             className="content-section__title"
-            href={navigateTo ? `#${navigateTo}` : `#${title}`}
+            to={navigateTo ? `#${navigateTo}` : `#${title}`}
           >
             {title}
-          </a>
+          </NavLink>
         )}
         {scrollDirection === 'vertical' && (
           <h1 className="content-section__title">{title}</h1>

@@ -3,16 +3,24 @@ import { useState } from 'react'
 import Image from '../common/Image'
 import Button from '../../input/Button'
 import SideMenu from '../menus/SideMenu'
+import SearchFilter from '../common/SearchFilter'
+import { NavLink, useNavigate } from 'react-router-dom'
 import useWindowDimensions from '../../../hooks/useWindowDimensions'
 import { mediaLibraryNavigation } from '../../../utils/navigationUtils'
 
 const Header: React.FC = () => {
   const [sideMenuOpen, setSideMenuOpen] = useState(false)
   const { screenSize } = useWindowDimensions()
+  const navigation = useNavigate()
 
   const handleBurgerMenuClick = () => {
     setSideMenuOpen((prev) => !prev)
   }
+
+  const handleSearch = (value: string) => {
+    console.log(value) // TODO: Implement search functionality
+  }
+
   // Isn't a header a kind of a menu? maybe move this to the menus folder?
 
   return (
@@ -32,9 +40,12 @@ const Header: React.FC = () => {
                 height="30"
               />
             </Button>
-            <Button transparent className="header__logo">
-              <Image src="/black.png" alt="Search" width="30" height="30" />
-            </Button>
+            <SearchFilter
+              className="header__search"
+              onchange={handleSearch}
+              height="30"
+              width="30"
+            />
             {sideMenuOpen && <SideMenu />}
           </>
         )}
@@ -42,7 +53,7 @@ const Header: React.FC = () => {
           <>
             <div className="header__left">
               <Image
-                src="/black.png"
+                src="/ReelixLogo.png"
                 alt="Reelix Logo"
                 className="header__logo"
                 width="50"
@@ -51,21 +62,28 @@ const Header: React.FC = () => {
             </div>
             <div className={`header__links`}>
               {mediaLibraryNavigation.map((type) => (
-                <a
+                <NavLink
                   key={type.value}
                   className="header__link"
-                  href={`#${type.value}`}
+                  to={`#${type.value}`}
                 >
                   {type.label}
-                </a>
+                </NavLink>
               ))}
             </div>
             <div className="header__right">
-              <Button transparent className="header__button">
-                <Image src="/black.png" alt="Search" width="50" height="50" />
-              </Button>
-              <Button transparent className="header__button">
-                <Image src="/black.png" alt="User" width="50" height="50" />
+              <SearchFilter
+                className="header__search"
+                onchange={handleSearch}
+                height="50"
+                width="50"
+              />
+              <Button
+                transparent
+                className="header__button"
+                onClick={() => navigation('/settings')}
+              >
+                <Image src="/black.png" alt="Settings" width="50" height="50" />
               </Button>
             </div>
           </>

@@ -1,0 +1,19 @@
+.search-filter__container {
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  width: 100%;
+
+  .search-filter__input {
+    &:not(.active) {
+      display: none;
+    }
+
+    width: 100%;
+  }
+
+  .search-filter__button {
+    padding: 0;
+  }
+}
