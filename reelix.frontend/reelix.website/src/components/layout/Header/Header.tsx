@@ -53,8 +53,8 @@ const Header: React.FC = () => {
           <>
             <div className="header__left">
               <Image
-                src="/ReelixLogo.png"
-                alt="Reelix Logo"
+                src="/ReelixIcon.png"
+                alt="Reelix Icon"
                 className="header__logo"
                 width="50"
                 height="50"
