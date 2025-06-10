@@ -18,4 +18,11 @@ export const contentFeedSectionsPerPage: {
   ],
   collections: [],
   watchList: [],
+  search: [
+    { label: 'Movies', value: 'movies' },
+    { label: 'Series', value: 'series' },
+    { label: 'Collections', value: 'collections' },
+    { label: 'Genres', value: 'genres' },
+    { label: 'Actors', value: 'actors' },
+  ],
 }

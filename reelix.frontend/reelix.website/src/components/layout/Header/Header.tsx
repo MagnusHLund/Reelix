@@ -18,7 +18,11 @@ const Header: React.FC = () => {
   }
 
   const handleSearch = (value: string) => {
-    console.log(value) // TODO: Implement search functionality
+    if (value.length <= 0) {
+      navigation('#home') // TODO: Change to previous page instead of just going back to home.
+    } else {
+      navigation('#search')
+    }
   }
 
   // Isn't a header a kind of a menu? maybe move this to the menus folder?
