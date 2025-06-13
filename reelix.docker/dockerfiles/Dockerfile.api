@@ -1,0 +1,24 @@
+# Context is now reelix.api
+
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+
+WORKDIR /src
+
+COPY *.sln ./
+COPY ReelixApi/*.csproj ./ReelixApi/
+RUN dotnet restore ./ReelixApi/ReelixApi.csproj
+
+COPY ReelixApi/. ./ReelixApi/
+WORKDIR /src/ReelixApi
+
+ENV DOTNET_USE_POLLING_FILE_WATCHER=1 \
+    DOTNET_RUNNING_IN_CONTAINER=true \
+    ASPNETCORE_URLS=http://0.0.0.0:48454
+
+RUN apt-get update && apt-get install -y unzip curl && \
+    mkdir -p /vsdbg && \
+    curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
+
+EXPOSE 48454 5678
+
+CMD ["dotnet", "watch", "run"]

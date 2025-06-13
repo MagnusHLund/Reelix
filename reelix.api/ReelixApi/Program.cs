@@ -1,10 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.OpenApi;
-
 namespace ReelixApi
 {
     public static class Program
@@ -35,12 +28,13 @@ namespace ReelixApi
 
         private static void ConfigureApp(WebApplication app)
         {
+            app.UsePathBase("/api");
+
             if (app.Environment.IsDevelopment())
             {
                 ConfigureDevelopmentTools(app);
             }
 
-            app.UsePathBase("/api");
             app.UseAuthorization();
             app.MapControllers();
         }
@@ -82,7 +76,7 @@ namespace ReelixApi
             app.UseSwaggerUI(options =>
             {
                 options.DocumentTitle = "Reelix API Documentation";
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Reelix API");
+                options.SwaggerEndpoint("/openapi/v1.json", "Reelix API");
             });
         }
     }
