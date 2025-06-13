@@ -1,21 +1,89 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.OpenApi;
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+namespace ReelixApi
 {
-    app.MapOpenApi();
+    public static class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            ConfigureServices(builder.Services);
+
+            var app = builder.Build();
+
+            ConfigureApp(app);
+
+            app.Run();
+        }
+
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddControllers();
+
+            ConfigureLogging(services);
+            ConfigureSwagger(services);
+            ConfigureDependencyInjection(services);
+            ConfigureBackgroundServices(services);
+            ConfigureDatabase(services);
+        }
+
+        private static void ConfigureApp(WebApplication app)
+        {
+            if (app.Environment.IsDevelopment())
+            {
+                ConfigureDevelopmentTools(app);
+            }
+
+            app.UsePathBase("/api");
+            app.UseAuthorization();
+            app.MapControllers();
+        }
+
+        private static void ConfigureSwagger(IServiceCollection services)
+        {
+            services.AddOpenApi();
+        }
+
+        private static void ConfigureDatabase(IServiceCollection services)
+        {
+            // TODO: Register MySQL & Neo4j DB contexts
+        }
+
+        private static void ConfigureDependencyInjection(IServiceCollection services)
+        {
+            // TODO: Register dependency injection
+
+            // Scoped
+
+            // Transient
+
+            // Singleton
+        }
+
+        private static void ConfigureLogging(IServiceCollection services)
+        {
+            // TODO: Setup Serilog or another logging framework
+        }
+
+        private static void ConfigureBackgroundServices(IServiceCollection services)
+        {
+            // TODO: Register background workers
+        }
+
+        private static void ConfigureDevelopmentTools(WebApplication app)
+        {
+            app.MapOpenApi();
+            app.UseSwaggerUI(options =>
+            {
+                options.DocumentTitle = "Reelix API Documentation";
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Reelix API");
+            });
+        }
+    }
 }
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

@@ -20,8 +20,8 @@ services:
       - ./../reelix.frontend/reelix.website/:/app
       - /app/node_modules
     ports:
-      - 766:766
-    command: ['sh', '-c', 'cd /app && npm install && npm run dev']
+      - 44141:44141
+    command: ['sh', '-c', 'cd /app && npm install && npm run dev-container']
     restart: unless-stopped
     depends_on:
       - dev-api
@@ -32,7 +32,7 @@ services:
     volumes:
       - ./../reelix.api/ReelixApi:/app
     ports:
-      - 667:667
+      - 48454:48454
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     command: ['dotnet', 'watch', 'run']

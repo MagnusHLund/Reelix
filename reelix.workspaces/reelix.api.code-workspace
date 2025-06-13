@@ -1,0 +1,33 @@
+{
+  "folders": [
+    {
+      "path": "./../reelix.api/",
+      "name": "Reelix API"
+    },
+    {
+      "path": "./../.git/"
+    }
+  ],
+  "settings": {
+    "dotnet.defaultSolution": "reelix.api.sln",
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "conventionalCommits.scopes": [
+      "api.recommendations",
+      "api.users",
+      "api.videos",
+      "api.auth",
+      "api.gateway",
+      "api.comments",
+      "client.reactNative",
+      "database",
+      "documentation",
+      "docker"
+    ],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[csharp]": {
+      "editor.defaultFormatter": "ms-dotnettools.csharp"
+    },
+    "cSpell.words": ["reelix"]
+  }
+}
