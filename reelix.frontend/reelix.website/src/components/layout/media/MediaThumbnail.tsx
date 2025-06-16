@@ -39,3 +39,11 @@ const MediaThumbnail: React.FC<MediaThumbnailProps> = ({
 }
 
 export default MediaThumbnail
+
+/* // TODO: Add a hover effect, giving the user the ability to...
+  Add to watch list, 
+  like or dislike, 
+  see age rating, 
+  total playtime & when it ends (local time),
+  genres
+*/

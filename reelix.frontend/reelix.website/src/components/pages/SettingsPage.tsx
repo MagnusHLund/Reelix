@@ -51,6 +51,7 @@ export default SettingsPage
 // Subtitle background color (color picker with transparency)
 // Preview of subtitle appearance
 // UI language (in supported languages)
+// Sort order of ContentSections on the home page.
 
 //? Version 2
 //! Exclusively admin settings
