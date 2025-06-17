@@ -1,16 +1,16 @@
 import './SideMenu.scss'
 import { NavLink } from 'react-router-dom'
 import NavigationSection from '../sections/NavigationSection'
-import { mediaLibraryNavigation } from '../../../utils/navigationUtils'
+import { mediaLibraryPageNavigation } from '../../navigation/navigationConfig'
 
 const SideMenu: React.FC = () => {
   return (
     <div className="side-menu__container">
       <NavigationSection title="Media libraries">
-        {mediaLibraryNavigation.map((item) => {
+        {Object.values(mediaLibraryPageNavigation).map((item) => {
           return (
             <NavLink
-              to={`#${item.value}`}
+              to={`#${item.path}`}
               key={item.label}
               className="side-menu__link"
             >

@@ -1,28 +1,24 @@
 import {
-  contentFeedPageSectionNavigation,
-  NavigationItem,
-} from './navigationUtils'
+  mediaLibraryPageNavigation,
+  mediaLibrarySectionsNavigation,
+} from './../components/navigation/navigationConfig'
 
-export const contentFeedSectionsPerPage: {
-  [key: string]: NavigationItem[]
-} = {
-  home: contentFeedPageSectionNavigation,
+export const contentFeedSectionsPerPage = {
+  home: [
+    mediaLibrarySectionsNavigation.continueWatching,
+    mediaLibrarySectionsNavigation.forYou,
+    mediaLibrarySectionsNavigation.trending,
+    mediaLibrarySectionsNavigation.recentlyAdded,
+  ],
   movies: [],
   series: [],
-  genres: [
-    // TODO: Pull from API instead, to get all existing genres on the server.
-    { label: 'Action', value: 'action' },
-    { label: 'Comedy', value: 'comedy' },
-    { label: 'Drama', value: 'drama' },
-    { label: 'Horror', value: 'horror' },
-  ],
   collections: [],
   watchList: [],
   search: [
-    { label: 'Movies', value: 'movies' },
-    { label: 'Series', value: 'series' },
-    { label: 'Collections', value: 'collections' },
-    { label: 'Genres', value: 'genres' },
-    { label: 'Actors', value: 'actors' },
+    mediaLibraryPageNavigation.movies,
+    mediaLibraryPageNavigation.series,
+    mediaLibraryPageNavigation.collections,
+    mediaLibraryPageNavigation.genres,
+    mediaLibrarySectionsNavigation.actors,
   ],
-}
+} as const

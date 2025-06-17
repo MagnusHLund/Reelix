@@ -24,9 +24,9 @@ const ContentFeedPage: React.FC = () => {
       <div className="content-feed__container">
         {contentCategories.map((category) => (
           <ContentSection
-            key={category.value}
+            key={category.path}
             title={category.label}
-            navigateTo={category.value}
+            navigateTo={category.path}
           >
             {mediaThumbnails}
           </ContentSection>

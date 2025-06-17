@@ -6,7 +6,7 @@ import SideMenu from '../menus/SideMenu'
 import SearchFilter from '../common/SearchFilter'
 import { NavLink, useNavigate } from 'react-router-dom'
 import useWindowDimensions from '../../../hooks/useWindowDimensions'
-import { mediaLibraryNavigation } from '../../../utils/navigationUtils'
+import { mediaLibraryPageNavigation } from '../../navigation/navigationConfig'
 
 const Header: React.FC = () => {
   const [sideMenuOpen, setSideMenuOpen] = useState(false)
@@ -65,11 +65,11 @@ const Header: React.FC = () => {
               />
             </div>
             <div className={`header__links`}>
-              {mediaLibraryNavigation.map((type) => (
+              {Object.values(mediaLibraryPageNavigation).map((type) => (
                 <NavLink
-                  key={type.value}
+                  key={type.path}
                   className="header__link"
-                  to={`#${type.value}`}
+                  to={`#${type.path}`}
                 >
                   {type.label}
                 </NavLink>

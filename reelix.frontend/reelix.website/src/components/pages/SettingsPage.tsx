@@ -8,69 +8,72 @@ export default SettingsPage
 
 // TODO: Settings of interest to add
 
-//? Version 1
-//! Exclusively admin settings
-// See folders to media libraries
-// See folder to logs
-// See folder for configuration (includes config file for settings that can mess up the server if changed incorrectly)
-// Restart server
-// Shutdown server
-// See active devices
-// See previously active devices
-// Scan media library
-// Show basic server information
-// See server activity log
-// See server alerts
-// Modify server name
-// Add additional media libraries
-// Manage access to different media libraries
-// User overview + adding new users
-// Assign user to administrator
-// Hardware acceleration
-// Modify list of which hardware decoding algorithms to use
+//* = Settings page name
+//! = Admin only setting
+//  = Setting for both admins and normal users
+//? = Not in the first version, but planned for later
+
+//* System settings
+//! Modify server name
+//! Restart server
+//! Shutdown server
+//! View directory paths (media library, logs, config)
+//! See active devices & the user that is using them
+//! See history of when users were last active
+//! Show basic server information (uptime, version, maybe more)
+//! See shortened critical server logs
+//! Server http port
+//! View scheduled tasks (media scan, clean logs, maybe more)
+//!? create & Manage scheduled tasks (media scan, clean logs, maybe more)
+//!? Allow changing mysql & Neo4j database to external server.
+//!? Server https port (& upload functionality for certificates stuff. Certificates will be in the config folder.)
+
+//* User management
+//! Assign user to administrator
+//! Create new user
+//! See all users (non-admins can only see their own user)
+// Change user name (non-admins can only change their own user name)
+// Change password (non-admins can only change their own password)
+// Timezone
+//!? Delete user accounts
+//!? Disable user account
+//!? Media age restriction for user
+//!? Whitelist genres for user
+//!? Manage Accessible hours for user
+
+//* Media library settings
+//! Scan media library
+//! Add additional media libraries
+//! Manage access to different media libraries
 // Minimum playtime percentage before media is considered "started watching"
 // Maximum playtime percentage before media is considered "done watching"
 // Minimum media length allowed to consider media as "started watching"
-// Server http port
-// View scheduled tasks (media scan, clean logs, maybe more)
-
-//! Shared settings (admin controls default setting value and user can overwrite it, if admin allows it)
-// Change user name
-// Change password
-// Preferred audio language
-// Preferred subtitle language
-// preferred video resolution
-// Timezone
 // Enable/disable theme songs for media
 // Max days in next up
 // Max items in next up
+// Sort order of ContentSections on the home page.
+
+//* Playback & streaming settings
+//! Hardware acceleration
+//! Modify list of which hardware decoding algorithms to use
+//! Video transcoding codec
+//! Audio transcoding codec
+// Preferred audio language
+// Preferred subtitle language
+// preferred video resolution
 // Subtitle text size
 // subtitle text weight
 // subtitle font family
 // Subtitle text color (color picker with transparency)
 // Subtitle background color (color picker with transparency)
-// Preview of subtitle appearance
+// Preview of subtitle appearance (not really a setting, but useful to have on the settings page)
+//? Network bandwidth (custom input field in mbps. if 0, disable.)
+//? Maximum media stream resolution
+//? Autoplay next series episode
+//? Audio channels (auto, stereo, mono, 5.1, 7.1)
+
+//* Personalization settings
 // UI language (in supported languages)
-// Sort order of ContentSections on the home page.
-
-//? Version 2
-//! Exclusively admin settings
-// Delete user account(s)
-// Media age restriction for user
-// Whitelist genres for user
-// Access hours for user
-// Video transcoding codec
-// Audio transcoding codec
-// create & Manage scheduled tasks (media scan, clean logs, maybe more)
-// Allow changing mysql & Neo4j database to external server.
-// Server https port (& upload functionality for certificates stuff. Certificates will be in the config folder.)
-
-//! Shared settings (admin controls default setting value and user can overwrite it, if admin allows it)
-// Colors (overwrite scss variables... is that possible? can it be saved on a database for the user, and applied to whichever device they are on?) - Allow background to be a slideshow of media images, custom single image or just a static color
-// Overall font family
-// Screensaver? Custom image or slideshow of media images. Also how long before it activates.
-// Network bandwidth (custom input field in mbps. if 0, disable.)
-// Maximum media stream resolution
-// Autoplay next series episode
-// Disable user account
-// Audio channels (auto, stereo, mono, 5.1, 7.1)
+//? Modify CSS variables, to change UI coloring & allowing background to be a slideshow of media images, custom single image or just a static color
+//? Change font family
+//? Choose screensaver (or disable)
