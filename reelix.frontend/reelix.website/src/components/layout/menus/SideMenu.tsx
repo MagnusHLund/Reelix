@@ -10,7 +10,7 @@ const SideMenu: React.FC = () => {
         {Object.values(mediaLibraryPageNavigation).map((item) => {
           return (
             <NavLink
-              to={`#${item.path}`}
+              to={`${item.path}`}
               key={item.label}
               className="side-menu__link"
             >
@@ -20,7 +20,7 @@ const SideMenu: React.FC = () => {
         })}
       </NavigationSection>
       <NavigationSection title="Settings">
-        <NavLink to="/settings" className="side-menu__link">
+        <NavLink to="/settings/user" className="side-menu__link">
           Settings
         </NavLink>
       </NavigationSection>

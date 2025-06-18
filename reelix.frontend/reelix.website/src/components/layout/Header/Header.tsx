@@ -19,9 +19,9 @@ const Header: React.FC = () => {
 
   const handleSearch = (value: string) => {
     if (value.length <= 0) {
-      navigation('#home') // TODO: Change to previous page instead of just going back to home.
+      navigation('/home') // TODO: Change to previous page instead of just going back to home.
     } else {
-      navigation('#search')
+      navigation('?search=' + encodeURIComponent(value))
     }
   }
 
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
                 <NavLink
                   key={type.path}
                   className="header__link"
-                  to={`#${type.path}`}
+                  to={`${type.path}`}
                 >
                   {type.label}
                 </NavLink>
@@ -85,7 +85,7 @@ const Header: React.FC = () => {
               <Button
                 transparent
                 className="header__button"
-                onClick={() => navigation('/settings')}
+                onClick={() => navigation('/settings/user')}
               >
                 <Image src="/black.png" alt="Settings" width="50" height="50" />
               </Button>

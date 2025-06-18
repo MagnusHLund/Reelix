@@ -69,7 +69,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
         {scrollDirection === 'horizontal' && (
           <NavLink
             className="content-section__title"
-            to={navigateTo ? `#${navigateTo}` : `#${title}`}
+            to={{ pathname: navigateTo ? `${navigateTo}` : `${title}` }}
           >
             {title}
           </NavLink>

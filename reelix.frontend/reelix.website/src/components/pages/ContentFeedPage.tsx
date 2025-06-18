@@ -1,15 +1,39 @@
-import { contentFeedSectionsPerPage } from '../../utils/contentUtils'
 import ContentSection from '../layout/sections/ContentSection'
 import MediaThumbnail from '../layout/media/MediaThumbnail'
 import { useLocation } from 'react-router-dom'
 import Header from '../layout/Header/Header'
 import './ContentFeedPage.scss'
-
-type ContentFeedType = keyof typeof contentFeedSectionsPerPage
+import {
+  mediaLibraryPageNavigation,
+  mediaLibrarySectionsNavigation,
+} from '../navigation/navigationConfig'
 
 const ContentFeedPage: React.FC = () => {
-  const contentFeedType =
-    (useLocation().hash.substring(1) as ContentFeedType) || 'home'
+  const location = useLocation().pathname
+
+  const contentFeedSectionsPerPage = {
+    home: [
+      mediaLibrarySectionsNavigation.continueWatching,
+      mediaLibrarySectionsNavigation.forYou,
+      mediaLibrarySectionsNavigation.trending,
+      mediaLibrarySectionsNavigation.recentlyAdded,
+    ],
+    movies: [],
+    series: [],
+    collections: [],
+    watchList: [],
+    search: [
+      mediaLibraryPageNavigation.movies,
+      mediaLibraryPageNavigation.series,
+      mediaLibraryPageNavigation.collections,
+      mediaLibraryPageNavigation.genres,
+      mediaLibrarySectionsNavigation.actors,
+    ],
+  } as const
+
+  type ContentFeedType = keyof typeof contentFeedSectionsPerPage
+
+  const contentFeedType = (location.substring(1) as ContentFeedType) || 'home'
   const contentCategories = contentFeedSectionsPerPage[contentFeedType] || []
 
   // TODO: Call api with the category feed type, to fetch the content
@@ -34,7 +58,12 @@ const ContentFeedPage: React.FC = () => {
         {contentCategories.length === 0 && (
           <ContentSection
             scrollDirection="vertical"
-            title={contentFeedType.toString().replace('-', ' ')}
+            title={
+              [
+                ...Object.values(mediaLibrarySectionsNavigation),
+                ...Object.values(mediaLibraryPageNavigation),
+              ].filter((section) => section.path == location)[0]?.label
+            }
           >
             {mediaThumbnails}
           </ContentSection>

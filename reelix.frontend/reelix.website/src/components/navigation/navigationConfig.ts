@@ -1,76 +1,102 @@
+import ContentFeedPage from '../pages/ContentFeedPage'
+import SettingsPage from '../pages/SettingsPage'
+
 export const mediaLibraryPageNavigation = {
   home: {
-    path: 'home',
+    path: '/home',
     label: 'Home',
+    component: ContentFeedPage,
   },
   movies: {
-    path: 'movies',
+    path: '/movies',
     label: 'Movies',
+    component: ContentFeedPage,
   },
   series: {
-    path: 'series',
+    path: '/series',
     label: 'Series',
+    component: ContentFeedPage,
   },
   genres: {
-    path: 'genres',
+    path: '/genres',
     label: 'Genres',
+    component: ContentFeedPage,
   },
   collections: {
-    path: 'collections',
+    path: '/collections',
     label: 'Collections',
+    component: ContentFeedPage,
   },
   watchList: {
-    path: 'watch-list',
-    label: 'Watch List',
+    path: '/watch-list',
+    label: 'Watch list',
+    component: ContentFeedPage,
   },
 } as const
 
 export const mediaLibrarySectionsNavigation = {
   continueWatching: {
-    path: 'continue-watching',
-    label: 'Continue Watching',
+    path: '/continue-watching',
+    label: 'Continue watching',
+    component: ContentFeedPage,
   },
   forYou: {
-    path: 'for-you',
-    label: 'For You',
+    path: '/for-you',
+    label: 'For you',
+    component: ContentFeedPage,
   },
   trending: {
-    path: 'trending',
+    path: '/trending',
     label: 'Trending',
+    component: ContentFeedPage,
   },
   recentlyAdded: {
-    path: 'recently-added',
-    label: 'Recently Added',
+    path: '/recently-added',
+    label: 'Recently added',
+    component: ContentFeedPage,
   },
   actors: {
-    path: 'actors',
+    path: '/actors',
     label: 'Actors',
+    component: ContentFeedPage,
   },
   search: {
-    path: 'search',
+    path: '/search',
     label: 'Search',
+    component: ContentFeedPage,
   },
 } as const
 
 export const settingsNavigation = {
-  system: {
-    path: 'system',
-    label: 'System settings',
-  },
   user: {
-    path: 'user',
+    path: '/settings/user',
     label: 'User management',
+    component: SettingsPage,
   },
   mediaLibrary: {
-    path: 'media-library',
+    path: '/settings/media-library',
     label: 'Media library settings',
+    component: SettingsPage,
   },
   playbackStreaming: {
-    path: 'playback-streaming',
+    path: '/settings/playback-streaming',
     label: 'Playback & streaming settings',
+    component: SettingsPage,
   },
   personalization: {
-    path: 'personalization',
+    path: '/settings/personalization',
     label: 'Personalization settings',
+    component: SettingsPage,
+  },
+  system: {
+    path: '/settings/system',
+    label: 'System settings',
+    component: SettingsPage,
   },
 } as const
+
+export const navigationConfig = [
+  ...Object.values(mediaLibraryPageNavigation),
+  ...Object.values(mediaLibrarySectionsNavigation),
+  ...Object.values(settingsNavigation),
+]

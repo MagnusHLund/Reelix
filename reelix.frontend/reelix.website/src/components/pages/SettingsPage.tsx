@@ -1,14 +1,21 @@
 import './SettingsPage.scss'
 
 const SettingsPage: React.FC = () => {
-  return <div className="settings__page"></div>
+  return (
+    <div className="settings__page">
+      <div>
+        <h1>Settings</h1>
+      </div>
+      <div className="settings__content"></div>
+    </div>
+  )
 }
 
 export default SettingsPage
 
 // TODO: Settings of interest to add
 
-//* = Settings page name
+//* = Settings tab name
 //! = Admin only setting
 //  = Setting for both admins and normal users
 //? = Not in the first version, but planned for later
@@ -77,3 +84,4 @@ export default SettingsPage
 //? Modify CSS variables, to change UI coloring & allowing background to be a slideshow of media images, custom single image or just a static color
 //? Change font family
 //? Choose screensaver (or disable)
+//? Maximum amount of media in a custom section row
