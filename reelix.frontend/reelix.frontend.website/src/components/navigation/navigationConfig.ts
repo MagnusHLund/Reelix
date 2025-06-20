@@ -68,6 +68,11 @@ export const mediaLibrarySectionsNavigation = {
 } as const
 
 export const settingsNavigation = {
+  system: {
+    path: '/settings/system',
+    label: 'System settings',
+    component: SettingsPage,
+  },
   user: {
     path: '/settings/user',
     label: 'User management',
@@ -86,11 +91,6 @@ export const settingsNavigation = {
   personalization: {
     path: '/settings/personalization',
     label: 'Personalization settings',
-    component: SettingsPage,
-  },
-  system: {
-    path: '/settings/system',
-    label: 'System settings',
     component: SettingsPage,
   },
 } as const
