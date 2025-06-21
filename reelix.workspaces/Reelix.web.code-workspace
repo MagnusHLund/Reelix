@@ -2,7 +2,11 @@
   "folders": [
     {
       "path": "./../reelix.frontend/reelix.frontend.website/",
-      "name": "Reelix Frontend"
+      "name": "Reelix Website"
+    },
+    {
+      "path": "./../reelix.frontend/reelix.frontend.translations/",
+      "name": "Reelix Frontend Translations" 
     },
     {
       "path": "./../.git/"

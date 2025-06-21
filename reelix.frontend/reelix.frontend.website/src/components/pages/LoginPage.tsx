@@ -13,9 +13,9 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="login__page">
-      <div className="login__container">
-        <h1 className="login__title">Welcome to Reelix</h1>
+    <div className='login__page'>
+      <div className='login__container'>
+        <h1 className='login__title'>Welcome to Reelix</h1>
         <Form
           onSubmit={onSubmit}
           fields={[
@@ -42,9 +42,7 @@ const LoginPage: React.FC = () => {
             },
           ]}
         />
-        <p className="login__footer">
-          Can't login? Contact your administrator.
-        </p>
+        <p className='login__footer'>Can't login? Contact your administrator.</p>
       </div>
     </div>
   )

@@ -5,10 +5,15 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  root: './',
   server: {
     port: 44141,
     open: true,
     host: '0.0.0.0',
+    fs: {
+      strict: false,
+      allow: ['./..'],
+    },
   },
   resolve: {
     alias: {

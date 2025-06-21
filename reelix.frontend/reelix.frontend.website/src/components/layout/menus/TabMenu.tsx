@@ -20,7 +20,7 @@ const TabMenu: React.FC<TabMenuProps> = ({ tabs, className }) => {
 
   return (
     <div className={`tab-menu__container ${className}`}>
-      <div className="tab-menu__header">
+      <div className='tab-menu__header'>
         {tabs.map((tab) => (
           <NavLink
             key={tab.navigateTo}
@@ -31,7 +31,7 @@ const TabMenu: React.FC<TabMenuProps> = ({ tabs, className }) => {
           </NavLink>
         ))}
       </div>
-      <div className="tab-menu__content">{activeTab?.tabContents}</div>
+      <div className='tab-menu__content'>{activeTab?.tabContents}</div>
     </div>
   )
 }

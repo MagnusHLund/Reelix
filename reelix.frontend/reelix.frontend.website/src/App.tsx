@@ -4,7 +4,7 @@ import './App.scss'
 
 function App() {
   return (
-    <div className="site__container">
+    <div className='site__container'>
       <Router />
     </div>
   )

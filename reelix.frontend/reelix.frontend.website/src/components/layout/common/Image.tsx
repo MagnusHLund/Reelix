@@ -10,23 +10,11 @@ interface ImageProps {
   className?: string
 }
 
-const Image: React.FC<ImageProps> = ({
-  src,
-  alt,
-  width,
-  height,
-  className = '',
-}) => {
+const Image: React.FC<ImageProps> = ({ src, alt, width, height, className = '' }) => {
   const [hasError, setHasError] = useState(false)
 
   if (!src || hasError) {
-    return (
-      <Skeleton
-        width={width}
-        height={height}
-        className={cn('image', className)}
-      />
-    )
+    return <Skeleton width={width} height={height} className={cn('image', className)} />
   }
 
   return (

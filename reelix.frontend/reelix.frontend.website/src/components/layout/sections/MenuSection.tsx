@@ -20,7 +20,7 @@ const MenuSection: React.FC<MenuSectionProps> = ({
         'menu-section__container--horizontal': direction === 'horizontal',
       })}
     >
-      <p className="menu-section__title">{title}</p>
+      <p className='menu-section__title'>{title}</p>
       <div
         className={cn(`menu-section__items ${className}`, {
           vertical: direction === 'vertical',

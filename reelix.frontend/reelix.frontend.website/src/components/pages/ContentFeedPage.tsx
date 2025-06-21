@@ -1,7 +1,7 @@
+import MediaLibraryHeader from '../layout/Header/MediaLibraryHeader'
 import ContentSection from '../layout/sections/ContentSection'
 import MediaThumbnail from '../layout/media/MediaThumbnail'
 import { useLocation } from 'react-router-dom'
-import Header from '../layout/Header/Header'
 import './ContentFeedPage.scss'
 import {
   mediaLibraryPageNavigation,
@@ -39,25 +39,21 @@ const ContentFeedPage: React.FC = () => {
   // TODO: Call api with the category feed type, to fetch the content
   const mediaThumbnails = Array(15).fill(
     // Max 15 is probably a good idea
-    <MediaThumbnail title="" releaseYear="" imageUrl="" />
+    <MediaThumbnail title='' releaseYear='' imageUrl='' />
   )
 
   return (
-    <div className="content-feed__page">
-      <Header />
-      <div className="content-feed__container">
+    <div className='content-feed__page'>
+      <MediaLibraryHeader />
+      <div className='content-feed__container'>
         {contentCategories.map((category) => (
-          <ContentSection
-            key={category.path}
-            title={category.label}
-            navigateTo={category.path}
-          >
+          <ContentSection key={category.path} title={category.label} navigateTo={category.path}>
             {mediaThumbnails}
           </ContentSection>
         ))}
         {contentCategories.length === 0 && (
           <ContentSection
-            scrollDirection="vertical"
+            scrollDirection='vertical'
             title={
               [
                 ...Object.values(mediaLibrarySectionsNavigation),

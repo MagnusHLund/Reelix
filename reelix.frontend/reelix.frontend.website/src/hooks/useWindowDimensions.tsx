@@ -25,9 +25,7 @@ const getSizeCategory = (width: number) => {
 }
 
 export default function useWindowDimensions(): WindowDimensions {
-  const [windowDimensions, setWindowDimensions] = useState(
-    getWindowDimensions()
-  )
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions())
 
   useEffect(() => {
     function handleResize() {

@@ -1,5 +1,5 @@
-import './Header.scss'
 import { useState } from 'react'
+import './MediaLibraryHeader.scss'
 import Image from '../common/Image'
 import Button from '../../input/Button'
 import SideMenu from '../menus/SideMenu'
@@ -8,7 +8,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import useWindowDimensions from '../../../hooks/useWindowDimensions'
 import { mediaLibraryPageNavigation } from '../../navigation/navigationConfig'
 
-const Header: React.FC = () => {
+const MediaLibraryHeader: React.FC = () => {
   const [sideMenuOpen, setSideMenuOpen] = useState(false)
   const { screenSize } = useWindowDimensions()
   const navigation = useNavigate()
@@ -29,73 +29,66 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className={`header__container header__container--${screenSize}`}>
+      <header
+        className={`media-library-header__container media-library-header__container--${screenSize}`}
+      >
         {screenSize === 'small' && (
           <>
             <Button
-              className="header__button"
+              className='media-library-header__button'
               transparent
               onClick={handleBurgerMenuClick}
             >
-              <Image
-                src="/black.png"
-                alt="burger menu"
-                width="30"
-                height="30"
-              />
+              <Image src='/black.png' alt='burger menu' width='30' height='30' />
             </Button>
             <SearchFilter
-              className="header__search"
+              className='media-library-header__search'
               onchange={handleSearch}
-              height="30"
-              width="30"
+              height='30'
+              width='30'
             />
             {sideMenuOpen && <SideMenu />}
           </>
         )}
         {screenSize !== 'small' && (
           <>
-            <div className="header__left">
+            <div className='media-library-header__left'>
               <Image
-                src="/ReelixIcon.png"
-                alt="Reelix Icon"
-                className="header__logo"
-                width="50"
-                height="50"
+                src='/ReelixIcon.png'
+                alt='Reelix Icon'
+                className='media-library-header__logo'
+                width='50'
+                height='50'
               />
             </div>
-            <div className={`header__links`}>
+            <div className={`media-library-header__links`}>
               {Object.values(mediaLibraryPageNavigation).map((type) => (
-                <NavLink
-                  key={type.path}
-                  className="header__link"
-                  to={`${type.path}`}
-                >
+                <NavLink key={type.path} className='media-library-header__link' to={`${type.path}`}>
                   {type.label}
                 </NavLink>
               ))}
             </div>
-            <div className="header__right">
+            <div className='media-library-header__right'>
               <SearchFilter
-                className="header__search"
+                className='media-library-header__search'
                 onchange={handleSearch}
-                height="50"
-                width="50"
+                height='50'
+                width='50'
               />
               <Button
                 transparent
-                className="header__button"
+                className='media-library-header__button'
                 onClick={() => navigation('/settings/user')}
               >
-                <Image src="/black.png" alt="Settings" width="50" height="50" />
+                <Image src='/black.png' alt='Settings' width='50' height='50' />
               </Button>
             </div>
           </>
         )}
       </header>
-      <div className={`header__spacer header__spacer--${screenSize}`} />
+      <div className={`media-library-header__spacer media-library-header__spacer--${screenSize}`} />
     </>
   )
 }
 
-export default Header
+export default MediaLibraryHeader

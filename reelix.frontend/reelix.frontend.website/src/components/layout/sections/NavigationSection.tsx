@@ -15,7 +15,7 @@ const NavigationSection: React.FC<NavigationSectionProps> = ({
 }) => {
   return (
     <nav className={`navigation-section__container ${className}`}>
-      <p className="navigation-section__title">{title}</p>
+      <p className='navigation-section__title'>{title}</p>
       <ul
         className={cn(`navigation-section__items ${className}`, {
           vertical: direction === 'vertical',

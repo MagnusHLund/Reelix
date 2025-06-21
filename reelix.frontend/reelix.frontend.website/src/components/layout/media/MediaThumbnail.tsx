@@ -10,29 +10,19 @@ interface MediaThumbnailProps {
   imageUrl: string
 }
 
-const MediaThumbnail: React.FC<MediaThumbnailProps> = ({
-  title,
-  releaseYear,
-  imageUrl,
-}) => {
+const MediaThumbnail: React.FC<MediaThumbnailProps> = ({ title, releaseYear, imageUrl }) => {
   return (
-    <Button
-      className="media-thumbnail__container"
-      transparent
-      onClick={() => {}}
-    >
+    <Button className='media-thumbnail__container' transparent onClick={() => {}}>
       <Image
         src={imageUrl}
-        alt="Media Thumbnail"
-        className="media-thumbnail__image"
-        height="175"
-        width="250"
+        alt='Media Thumbnail'
+        className='media-thumbnail__image'
+        height='175'
+        width='250'
       />
-      <div className="media-thumbnail__info">
-        <span className="media-thumbnail__title">{title || <Skeleton />}</span>
-        <span className="media-thumbnail__release-year">
-          {releaseYear || <Skeleton />}
-        </span>
+      <div className='media-thumbnail__info'>
+        <span className='media-thumbnail__title'>{title || <Skeleton />}</span>
+        <span className='media-thumbnail__release-year'>{releaseYear || <Skeleton />}</span>
       </div>
     </Button>
   )

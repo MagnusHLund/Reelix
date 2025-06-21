@@ -19,9 +19,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   className = '',
   transparent = false,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<string | undefined>(
-    defaultSelectedValue
-  )
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(defaultSelectedValue)
 
   const handleChange = (value: string) => {
     setSelectedValue(value)
@@ -35,17 +33,13 @@ const Dropdown: React.FC<DropdownProps> = ({
       value={selectedValue}
     >
       {titleInsideDropdown && (
-        <option value="" disabled>
+        <option value='' disabled>
           {titleInsideDropdown}
         </option>
       )}
       {options.map((option) => {
         return (
-          <option
-            value={option.value}
-            key={option.value}
-            className="dropdown__option"
-          >
+          <option value={option.value} key={option.value} className='dropdown__option'>
             {option.label}
           </option>
         )

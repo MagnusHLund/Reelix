@@ -1,12 +1,5 @@
 import './Form.scss'
-import {
-  Path,
-  useForm,
-  FieldError,
-  FieldErrors,
-  FieldValues,
-  SubmitHandler,
-} from 'react-hook-form'
+import { Path, useForm, FieldError, FieldErrors, FieldValues, SubmitHandler } from 'react-hook-form'
 import Button from '../../input/Button'
 import TextInput from '../../input/TextInput'
 import ErrorContainer from './ErrorContainer'
@@ -40,9 +33,7 @@ const Form = <T extends FieldValues>({
     return Object.entries(error).map(([field, fieldError]) => {
       const errorMessage = (fieldError as FieldError)?.message
       return (
-        errorMessage ||
-        fields.find((f) => f.name === field)?.errorMessage ||
-        'Field is required'
+        errorMessage || fields.find((f) => f.name === field)?.errorMessage || 'Field is required'
       )
     })
   }
@@ -51,22 +42,22 @@ const Form = <T extends FieldValues>({
     <div className={`form__container ${className}`}>
       {Object.keys(errors).length > 0 && (
         <ErrorContainer
-          className="form__error-container"
+          className='form__error-container'
           errorMessages={formatErrorMessages(errors)}
         />
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="form__element">
+      <form onSubmit={handleSubmit(onSubmit)} className='form__element'>
         {fields.map(({ name, validation, type }) => (
           <TextInput
             key={String(name)}
             placeholder={String(name)}
             type={type}
-            className="form__input"
+            className='form__input'
             {...register(name as Path<T>, validation)}
           />
         ))}
-        <Button type="submit" className="form__submit-button">
+        <Button type='submit' className='form__submit-button'>
           {buttonText}
         </Button>
       </form>

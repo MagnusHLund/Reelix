@@ -1,54 +1,33 @@
-# React + TypeScript + Vite
+# Reelix website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Reelix website is made using Vite React with Typescript & SCSS.
 
-Currently, two official plugins are available:
+## Dependencies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* Node
+* NPM
 
-## Expanding the ESLint configuration
+## Start project
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Developer container (Recommended)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Go to the [developer container directory](./../../reelix.docker/) and follow the instructions in its README file. <br>
+This will start up all projects required for the project.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+open http://localhost:8025 or https://localhost:44325, which will hit nginx in the container and it will return the website.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Standalone
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Running the website project standalone, will require that you start other projects as well, to have everything working. <br>
+Please follow the instructions in
+
+1. Start up your CLI and navigate to the same directory as this README file.
+2. Ensure you have the lates npm dependencies, run `npm install`
+3. To only start the website project, run `npm run dev`.
+4. The website will then open up, on http://localhost:44141
+
+## Code formatting
+
+The website project is using prettier for code formatting.
+
+Please configure your IDE to use the [project's prettier configuration file](./.prettierrc).

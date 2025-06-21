@@ -10,17 +10,12 @@ interface SettingProps {
   isAdminUser?: boolean
 }
 
-const Setting: React.FC<SettingProps> = ({
-  title,
-  description,
-  classname,
-  children,
-}) => {
+const Setting: React.FC<SettingProps> = ({ title, description, classname, children }) => {
   return (
     <div className={`setting__container ${classname}`}>
-      <h2 className="setting__title">{title}</h2>
-      {description && <p className="setting__description">{description}</p>}
-      <div className="setting__content">{children}</div>
+      <h2 className='setting__title'>{title}</h2>
+      {description && <p className='setting__description'>{description}</p>}
+      <div className='setting__content'>{children}</div>
     </div>
   )
 }

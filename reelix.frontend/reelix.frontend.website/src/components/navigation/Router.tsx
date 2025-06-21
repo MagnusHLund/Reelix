@@ -10,7 +10,7 @@ const Router: React.FC = () => {
       {navigationConfig.map(({ path, component }) => (
         <Route key={path} path={path} element={React.createElement(component)} />
       ))}
-      <Route path="*" element={<Navigate to="/home" replace />} />
+      <Route path='*' element={<Navigate to='/home' replace />} />
     </Routes>
   )
 }

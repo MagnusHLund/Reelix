@@ -7,7 +7,7 @@ import { SkeletonTheme } from 'react-loading-skeleton'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <SkeletonTheme baseColor="#123123" highlightColor="#456789">
+      <SkeletonTheme baseColor='#123123' highlightColor='#456789'>
         <App />
       </SkeletonTheme>
     </BrowserRouter>

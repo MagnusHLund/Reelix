@@ -12,32 +12,27 @@ interface SearchFilterProps {
   width?: string
 }
 
-const SearchFilter: React.FC<SearchFilterProps> = ({
-  onchange,
-  className,
-  height,
-  width,
-}) => {
+const SearchFilter: React.FC<SearchFilterProps> = ({ onchange, className, height, width }) => {
   const [displayTextInput, setDisplayTextInput] = useState(false)
 
   return (
     <div className={`search-filter__container ${className}`}>
       <TextInput
-        placeholder="Search"
+        placeholder='Search'
         onChange={(e) => onchange?.(e.target.value)}
-        type="search"
+        type='search'
         className={cn('search-filter__input', {
           active: displayTextInput,
         })}
       />
       <Button
-        className="search-filter__button"
+        className='search-filter__button'
         transparent
         onClick={() => {
           setDisplayTextInput((prev) => !prev)
         }}
       >
-        <Image src="/black.png" alt="Search" width={width} height={height} />
+        <Image src='/black.png' alt='Search' width={width} height={height} />
       </Button>
     </div>
   )

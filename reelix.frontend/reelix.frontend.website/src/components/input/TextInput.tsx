@@ -21,7 +21,7 @@ const TextInput: React.FC<TextInputProps> = ({
   return (
     <div className={`text-input ${className}`}>
       {placeholder && (
-        <label className="text-input__placeholder" htmlFor={id}>
+        <label className='text-input__placeholder' htmlFor={id}>
           {placeholder}
         </label>
       )}
@@ -29,9 +29,9 @@ const TextInput: React.FC<TextInputProps> = ({
         id={id}
         name={id}
         type={type}
-        className="text-input__field"
+        className='text-input__field'
         defaultValue={defaultValue}
-        placeholder=""
+        placeholder=''
         onChange={(e) => onChange?.(e)}
         {...props}
       />

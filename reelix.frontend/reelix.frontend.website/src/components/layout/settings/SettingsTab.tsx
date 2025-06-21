@@ -37,11 +37,11 @@ const SettingsTab: React.FC<SettingsTabProps> = ({
   })
 
   return (
-    <section className="settings-tab__container">
-      <div className="settings-tab__header">
-        <h1 className="settings-tab__title">{title}</h1>
+    <section className='settings-tab__container'>
+      <div className='settings-tab__header'>
+        <h1 className='settings-tab__title'>{title}</h1>
       </div>
-      <div className="settings-tab__content">{SettingsForTab}</div>
+      <div className='settings-tab__content'>{SettingsForTab}</div>
     </section>
   )
 }

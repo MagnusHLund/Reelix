@@ -55,9 +55,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current
       const scrollAmount =
-        direction === 'left'
-          ? scrollLeft - clientWidth
-          : scrollLeft + clientWidth
+        direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth
       scrollRef.current.scrollTo({ left: scrollAmount, behavior: 'smooth' })
     }
   }
@@ -65,26 +63,21 @@ const ContentSection: React.FC<ContentSectionProps> = ({
   // TODO: Fix buttons and scroll indicator loading in much slower than everything else.
   return (
     <section className={`content-section__container ${className}`}>
-      <div className="content-section__header-wrapper">
+      <div className='content-section__header-wrapper'>
         {scrollDirection === 'horizontal' && (
           <NavLink
-            className="content-section__title"
+            className='content-section__title'
             to={{ pathname: navigateTo ? `${navigateTo}` : `${title}` }}
           >
             {title}
           </NavLink>
         )}
-        {scrollDirection === 'vertical' && (
-          <h1 className="content-section__title">{title}</h1>
-        )}
+        {scrollDirection === 'vertical' && <h1 className='content-section__title'>{title}</h1>}
         {screenSize !== 'small' && scrollDirection === 'horizontal' && (
-          <ScrollIndicator
-            className="content-section__scroll-indicator"
-            scrollRef={scrollRef}
-          />
+          <ScrollIndicator className='content-section__scroll-indicator' scrollRef={scrollRef} />
         )}
         {screenSize !== 'small' && scrollDirection === 'vertical' && (
-          <p className="content-section__media-count">
+          <p className='content-section__media-count'>
             {undefined /* TODO: Total amount of items in database. Not those displayed. */ || (
               <Skeleton />
             )}
@@ -95,7 +88,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
         {scrollDirection === 'horizontal' && canScrollLeft && (
           <Button
             transparent
-            className="content-section__button content-section__button--left"
+            className='content-section__button content-section__button--left'
             onClick={() => handleScroll('left')}
           >
             {'<'}
@@ -112,7 +105,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
         {scrollDirection === 'horizontal' && canScrollRight && (
           <Button
             transparent
-            className="content-section__button content-section__button--right"
+            className='content-section__button content-section__button--right'
             onClick={() => handleScroll('right')}
           >
             {'>'}

@@ -6,10 +6,7 @@ interface ScrollIndicatorProps {
   className?: string
 }
 
-const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
-  scrollRef,
-  className = '',
-}) => {
+const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({ scrollRef, className = '' }) => {
   const [scrollStart, setScrollStart] = useState(0)
   const [scrollWidth, setScrollWidth] = useState(0)
   const rafRef = useRef<number | null>(null)
@@ -18,11 +15,7 @@ const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
     if (!scrollRef?.current) {
       return
     }
-    const {
-      scrollLeft,
-      scrollWidth: totalWidth,
-      clientWidth,
-    } = scrollRef.current
+    const { scrollLeft, scrollWidth: totalWidth, clientWidth } = scrollRef.current
 
     const percentStart = (scrollLeft / totalWidth) * 100
     const percentWidth = (clientWidth / totalWidth) * 100
@@ -64,7 +57,7 @@ const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
   return (
     <div className={`scroll-indicator__container ${className}`}>
       <div
-        className="scroll-indicator__bar"
+        className='scroll-indicator__bar'
         style={{
           left: `${scrollStart}%`,
           width: `${scrollWidth}%`,
