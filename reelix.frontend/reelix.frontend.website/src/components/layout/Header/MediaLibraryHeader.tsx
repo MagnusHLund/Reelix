@@ -25,8 +25,6 @@ const MediaLibraryHeader: React.FC = () => {
     }
   }
 
-  // Isn't a header a kind of a menu? maybe move this to the menus folder?
-
   return (
     <>
       <header

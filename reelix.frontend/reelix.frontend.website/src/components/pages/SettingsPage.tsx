@@ -3,6 +3,7 @@ import PersonalizationSettingsTab from '../layout/settings/settingsForTabs/Perso
 import UserManagementSettingsTab from '../layout/settings/settingsForTabs/UserManagementSettingsTab'
 import MediaLibrarySettingsTab from '../layout/settings/settingsForTabs/MediaLibrarySettingsTab'
 import SystemSettingsTab from '../layout/settings/settingsForTabs/SystemSettingsTab'
+import SettingsHeader from '../layout/Header/SettingsHeader'
 import SettingsTab from '../layout/settings/SettingsTab'
 import TabMenu from '../layout/menus/TabMenu'
 import Dropdown from '../input/Dropdown'
@@ -12,11 +13,6 @@ import './SettingsPage.scss'
 const SettingsPage: React.FC = () => {
   const [isAdmin, setIsAdmin] = useState<boolean>(true) // TODO: Determined by authorization, when API is implemented
   const [selectedScope, setSelectedScope] = useState<string>('user')
-
-  const settingsScopes = [
-    { value: 'user', label: 'User' },
-    { value: 'admin', label: 'Admin' },
-  ]
 
   const settingsTabs = [
     {
@@ -48,20 +44,7 @@ const SettingsPage: React.FC = () => {
 
   return (
     <div className='settings__page'>
-      <div className='settings__header'>
-        <h1 className='settings__header-title'>Settings</h1>
-        {isAdmin && (
-          <div className='settings__scope-selector'>
-            <span className='settings__scope-label'>View settings as:</span>
-            <Dropdown
-              className='settings__scope-dropdown'
-              options={settingsScopes}
-              defaultSelectedValue='user'
-              onChange={(value) => setSelectedScope(value)}
-            />
-          </div>
-        )}
-      </div>
+      <SettingsHeader title='Settings' isAdmin={isAdmin} onDropdownChange={setSelectedScope} />
       <TabMenu
         className='settings__tabs'
         tabs={settingsTabs.map(({ title, navigateTo, Component }) => ({
