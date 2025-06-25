@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+export type UserRole = 'admin' | 'user'
+
 export type User = {
   id: number
   username: string
   email: string
-  isAdmin: boolean
+  role: UserRole
   createdAt: string
   updatedAt: string
 }
@@ -19,7 +21,7 @@ const initialState: UsersProps = {
     id: 0,
     username: '',
     email: '',
-    isAdmin: false,
+    role: 'admin',
     createdAt: '',
     updatedAt: '',
   },

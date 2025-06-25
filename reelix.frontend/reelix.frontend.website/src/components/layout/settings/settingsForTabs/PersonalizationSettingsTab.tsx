@@ -1,7 +1,6 @@
-import { SettingsForTabProps } from '../SettingsTab'
 import './PersonalizationSettingsTab.scss'
 
-const PersonalizationSettingsTab: React.FC<SettingsForTabProps> = ({ isAdminSettingsScope }) => {
+const PersonalizationSettingsTab: React.FC = () => {
   return <div className='personalization-settings-tab__container'></div>
 }
 

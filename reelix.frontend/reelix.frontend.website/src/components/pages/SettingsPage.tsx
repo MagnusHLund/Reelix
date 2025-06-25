@@ -4,45 +4,44 @@ import UserManagementSettingsTab from '../layout/settings/settingsForTabs/UserMa
 import MediaLibrarySettingsTab from '../layout/settings/settingsForTabs/MediaLibrarySettingsTab'
 import SystemSettingsTab from '../layout/settings/settingsForTabs/SystemSettingsTab'
 import { selectMyUser } from '../../redux/selectors/usersSelectors'
+import { settingsNavigation } from '../navigation/navigationConfig'
 import SettingsHeader from '../layout/Header/SettingsHeader'
 import SettingsTab from '../layout/settings/SettingsTab'
 import TabMenu from '../layout/menus/TabMenu'
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
 import './SettingsPage.scss'
 
 const SettingsPage: React.FC = () => {
-  const isAdmin = useSelector(selectMyUser).isAdmin || false
-  const [selectedScope, setSelectedScope] = useState<string>('user')
+  const isAdmin = useSelector(selectMyUser).role === 'admin'
 
   const settingsTabs = [
     {
       title: 'System',
-      navigateTo: '/settings/system',
+      navigateTo: settingsNavigation.system.path,
       Component: SystemSettingsTab,
       adminOnly: true,
     },
     {
       title: 'User Management',
-      navigateTo: '/settings/user',
+      navigateTo: settingsNavigation.user.path,
       Component: UserManagementSettingsTab,
       adminOnly: false,
     },
     {
       title: 'Media Library',
-      navigateTo: '/settings/media-library',
+      navigateTo: settingsNavigation.mediaLibrary.path,
       Component: MediaLibrarySettingsTab,
       adminOnly: false,
     },
     {
       title: 'Playback & Streaming',
-      navigateTo: '/settings/playback-streaming',
+      navigateTo: settingsNavigation.playbackStreaming.path,
       Component: PlaybackAndStreamingSettingsTab,
       adminOnly: false,
     },
     {
       title: 'Personalization',
-      navigateTo: '/settings/personalization',
+      navigateTo: settingsNavigation.personalization.path,
       Component: PersonalizationSettingsTab,
       adminOnly: false,
     },
@@ -50,19 +49,14 @@ const SettingsPage: React.FC = () => {
 
   return (
     <div className='settings__page'>
-      <SettingsHeader title='Settings' isAdmin={isAdmin} onDropdownChange={setSelectedScope} />
+      <SettingsHeader title='Settings' isAdmin={isAdmin} />
       <TabMenu
         className='settings__tabs'
         tabs={settingsTabs.map(({ title, navigateTo, Component, adminOnly }) => ({
           title,
           navigateTo,
           adminOnly,
-          tabContents: (
-            <SettingsTab
-              title={title}
-              tabContentComponent={<Component isAdminSettingsScope={selectedScope === 'admin'} />}
-            />
-          ),
+          tabContents: <SettingsTab tabContentComponent={<Component />} />,
         }))}
       />
     </div>

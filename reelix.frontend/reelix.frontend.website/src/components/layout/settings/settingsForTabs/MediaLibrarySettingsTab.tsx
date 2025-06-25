@@ -1,7 +1,6 @@
-import { SettingsForTabProps } from '../SettingsTab'
 import './MediaLibrarySettingsTab.scss'
 
-const MediaLibrarySettingsTab: React.FC<SettingsForTabProps> = () => {
+const MediaLibrarySettingsTab: React.FC = () => {
   return <div className='media-library-settings-tab__container'></div>
 }
 

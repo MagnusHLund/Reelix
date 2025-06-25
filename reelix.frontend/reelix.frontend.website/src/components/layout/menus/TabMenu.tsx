@@ -17,7 +17,7 @@ interface TabMenuProps {
 }
 
 const TabMenu: React.FC<TabMenuProps> = ({ tabs, className }) => {
-  const isAdmin = useSelector(selectMyUser).isAdmin
+  const isAdmin = useSelector(selectMyUser).role
   const location = useLocation().pathname
   const activeTab = tabs.find((tab) => tab.navigateTo === location)
 

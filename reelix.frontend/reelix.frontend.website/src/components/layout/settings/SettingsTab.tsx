@@ -13,34 +13,26 @@ type AllowedSettingsTabs =
   | React.ReactElement<SettingsTabProps, typeof PlaybackAndStreamingSettingsTab>
   | React.ReactElement<SettingsTabProps, typeof PersonalizationSettingsTab>
 
-export interface SettingsForTabProps {
-  isAdminSettingsScope?: boolean
-}
-
-interface SettingsTabProps extends SettingsForTabProps {
-  title: string
+interface SettingsTabProps {
+  title?: string
   tabContentComponent: AllowedSettingsTabs
 }
 
-const SettingsTab: React.FC<SettingsTabProps> = ({
-  title,
-  tabContentComponent,
-  isAdminSettingsScope,
-}) => {
+const SettingsTab: React.FC<SettingsTabProps> = ({ title, tabContentComponent }) => {
   const SettingsForTab = React.Children.map(tabContentComponent, (child) => {
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, {
-        isAdminSettingsScope: isAdminSettingsScope,
-      })
+      return React.cloneElement(child)
     }
     return child
   })
 
   return (
     <section className='settings-tab__container'>
-      <div className='settings-tab__header'>
-        <h1 className='settings-tab__title'>{title}</h1>
-      </div>
+      {title && (
+        <div className='settings-tab__header'>
+          <h1 className='settings-tab__title'>{title}</h1>
+        </div>
+      )}
       <div className='settings-tab__content'>{SettingsForTab}</div>
     </section>
   )

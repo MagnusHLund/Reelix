@@ -1,5 +1,8 @@
+import { setSettingsScope } from '../../../redux/slices/settingsSlice'
 import useWindowDimensions from '../../../hooks/useWindowDimensions'
+import { UserRole } from '../../../redux/slices/usersSlice'
 import Dropdown from '../../input/Dropdown'
+import { useDispatch } from 'react-redux'
 import Button from '../../input/Button'
 import './SettingsHeader.scss'
 
@@ -7,16 +10,20 @@ interface SettingsHeaderProps {
   title: string
   isAdmin?: boolean
   className?: string
-  onDropdownChange: (value: string) => void
 }
 
-const SettingsHeader: React.FC<SettingsHeaderProps> = ({ title, isAdmin, onDropdownChange }) => {
+const SettingsHeader: React.FC<SettingsHeaderProps> = ({ title, isAdmin }) => {
+  const dispatch = useDispatch()
   const { screenSize } = useWindowDimensions()
 
   const settingsScopes = [
-    { value: 'user', label: 'User' },
-    { value: 'admin', label: 'Admin' },
+    { value: 'user' as UserRole, label: 'User' },
+    { value: 'admin' as UserRole, label: 'Admin' },
   ]
+
+  const onDropdownChange = (value: string) => {
+    dispatch(setSettingsScope(value))
+  }
 
   return (
     <>

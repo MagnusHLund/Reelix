@@ -1,7 +1,22 @@
-import { SettingsForTabProps } from '../SettingsTab'
+import { selectSettingsScope } from '../../../../redux/selectors/settingsSelectors'
+import { selectMyUser } from '../../../../redux/selectors/usersSelectors'
+import { settingsNavigation } from '../../../navigation/navigationConfig'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import './UserManagementSettingsTab.scss'
+import { useEffect } from 'react'
 
-const UserManagementSettingsTab: React.FC<SettingsForTabProps> = ({ isAdminSettingsScope }) => {
+const UserManagementSettingsTab: React.FC = () => {
+  const settingsScope = useSelector(selectSettingsScope)
+  const myUser = useSelector(selectMyUser)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (settingsScope === 'user') {
+      navigate(`${settingsNavigation.user.path}?${myUser.id}`)
+    }
+  }, [myUser, settingsScope, navigate])
+
   return <div className='user-management-settings-tab__container'></div>
 }
 
@@ -13,7 +28,7 @@ export default UserManagementSettingsTab
 //? = Not in the first version, but planned for later
 
 //* User management
-//! Assign user to administrator
+//! Assign and remove user as administrator - cant remove self
 //! Create new user
 //! See all users (non-admins can only see their own user)
 // Change user name (non-admins can only change their own user name)
