@@ -13,6 +13,7 @@ interface ContentSectionProps extends BaseSectionProps {
   children: React.ReactNode
   scrollDirection?: 'horizontal' | 'vertical'
   navigateTo?: string
+  totalContentCount?: number
 }
 
 const ContentSection: React.FC<ContentSectionProps> = ({
@@ -21,6 +22,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
   className = '',
   scrollDirection = 'horizontal',
   navigateTo,
+  totalContentCount, // TODO: Total amount of items in database. Not those displayed.
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null)
   const { screenSize } = useWindowDimensions()
@@ -77,11 +79,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
           <ScrollIndicator className='content-section__scroll-indicator' scrollRef={scrollRef} />
         )}
         {screenSize !== 'small' && scrollDirection === 'vertical' && (
-          <p className='content-section__media-count'>
-            {undefined /* TODO: Total amount of items in database. Not those displayed. */ || (
-              <Skeleton />
-            )}
-          </p>
+          <p className='content-section__media-count'>{totalContentCount || <Skeleton />}</p>
         )}
       </div>
       <div className={cn('content-section__content-wrapper')}>

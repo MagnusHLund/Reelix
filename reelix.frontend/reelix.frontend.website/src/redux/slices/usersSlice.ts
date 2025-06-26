@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export type UserRole = 'admin' | 'user'
 
 export type User = {
-  id: number
+  id: string
   username: string
   email: string
   role: UserRole
@@ -18,12 +18,12 @@ export interface UsersProps {
 
 const initialState: UsersProps = {
   myUser: {
-    id: 0,
-    username: '',
-    email: '',
+    id: 'guid-1',
+    username: 'Admin user',
+    email: 'admin@example.com',
     role: 'admin',
-    createdAt: '',
-    updatedAt: '',
+    createdAt: '25-06-2025',
+    updatedAt: '26-06-2025',
   },
   users: [],
 }

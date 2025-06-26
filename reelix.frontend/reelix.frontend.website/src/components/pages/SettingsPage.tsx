@@ -53,6 +53,7 @@ const SettingsPage: React.FC = () => {
       <TabMenu
         className='settings__tabs'
         tabs={settingsTabs.map(({ title, navigateTo, Component, adminOnly }) => ({
+          key: navigateTo.toLowerCase(),
           title,
           navigateTo,
           adminOnly,

@@ -1,6 +1,6 @@
 import MediaLibraryHeader from '../layout/Header/MediaLibraryHeader'
 import ContentSection from '../layout/sections/ContentSection'
-import MediaThumbnail from '../layout/media/MediaThumbnail'
+import Thumbnail from '../layout/common/Thumbnail'
 import { useLocation } from 'react-router-dom'
 import './ContentFeedPage.scss'
 import {
@@ -39,7 +39,7 @@ const ContentFeedPage: React.FC = () => {
   // TODO: Call api with the category feed type, to fetch the content
   const mediaThumbnails = Array(15).fill(
     // Max 15 is probably a good idea
-    <MediaThumbnail title='' releaseYear='' imageUrl='' />
+    <Thumbnail PrimaryText='' SecondaryText='' imageUrl='' />
   )
 
   return (
