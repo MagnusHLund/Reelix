@@ -2,9 +2,14 @@ import './Dropdown.scss'
 import cn from 'classnames'
 import { useState } from 'react'
 
-interface DropdownProps {
-  options: { value: string; label: string }[]
-  onChange: (value: string) => void
+export type DropdownOption = {
+  value: string
+  label: string
+}
+
+interface DropdownProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange'> {
+  options: DropdownOption[]
+  onValueChange?: (value: string) => void
   defaultSelectedValue?: string
   titleInsideDropdown?: string
   className?: string
@@ -14,23 +19,24 @@ interface DropdownProps {
 const Dropdown: React.FC<DropdownProps> = ({
   options,
   defaultSelectedValue,
-  onChange,
+  onValueChange,
   titleInsideDropdown = '',
   className = '',
   transparent = false,
+  ...props
 }) => {
   const [selectedValue, setSelectedValue] = useState<string | undefined>(defaultSelectedValue)
 
   const handleChange = (value: string) => {
     setSelectedValue(value)
-    onChange(value)
+    onValueChange?.(value)
   }
-
   return (
     <select
       className={cn('dropdown', className, { transparent: transparent })}
       onChange={(e) => handleChange(e.target.value)}
       value={selectedValue}
+      {...props}
     >
       {titleInsideDropdown && (
         <option value='' disabled>

@@ -1,11 +1,13 @@
 import './TextInput.scss'
 import { stringToPascalCase } from '../../utils/stringUtils'
 
-interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+type AllowedTextInputTypes = 'text' | 'email' | 'password' | 'search' | 'tel' | 'url' | 'number'
+
+interface TextInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   placeholder?: string
   defaultValue?: string
   className?: string
-  type?: React.HTMLInputTypeAttribute
+  type?: AllowedTextInputTypes
 }
 
 const TextInput: React.FC<TextInputProps> = ({

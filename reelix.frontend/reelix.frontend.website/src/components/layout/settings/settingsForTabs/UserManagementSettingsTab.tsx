@@ -8,6 +8,9 @@ import Thumbnail from '../../common/Thumbnail'
 import { useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import './UserManagementSettingsTab.scss'
+import Button from '../../../input/Button'
+import Image from '../../common/Image'
+import Form from '../../common/Form'
 
 const UserManagementSettingsTab: React.FC = () => {
   const settingsScope = useSelector(selectSettingsScope)
@@ -87,7 +90,47 @@ const UserManagementSettingsTab: React.FC = () => {
           </div>
         </ContentSection>
       ) : (
-        <div>{selectedUser && <div></div>}</div>
+        <div>
+          {selectedUser && (
+            <Form
+              onSubmit={() => {}}
+              className='user-management-settings-tab__form'
+              fields={[
+                {
+                  name: 'username',
+                  label: 'Username',
+                  type: 'text',
+                  errorMessage: 'Username is required',
+                },
+                {
+                  name: 'password',
+                  label: 'Password',
+                  type: 'password',
+                  errorMessage: 'Password is required',
+                },
+                {
+                  name: 'Repeat Password',
+                  label: 'Repeat Password',
+                  type: 'password',
+                },
+                {
+                  name: 'Age restriction',
+                  label: 'Age restriction',
+                  type: 'select',
+                  dropdownOptions: [
+                    { value: 'disabled', label: 'No restriction' },
+                    { value: 'g', label: 'G - General Audiences' },
+                    { value: 'pg', label: 'PG - Parental Guidance Suggested' },
+                    { value: 'pg-13', label: 'PG-13 - Parents Strongly Cautioned' },
+                    { value: 'r', label: 'R - Restricted' },
+                    { value: 'nc-17', label: 'NC-17 - Adults Only' },
+                  ],
+                  isAdminOnly: true,
+                },
+              ]}
+            />
+          )}
+        </div>
       )}
     </div>
   )
