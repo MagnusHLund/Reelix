@@ -1,5 +1,5 @@
-import './TextInput.scss'
 import { stringToPascalCase } from '../../utils/stringUtils'
+import './TextInput.scss'
 
 type AllowedTextInputTypes = 'text' | 'email' | 'password' | 'search' | 'tel' | 'url' | 'number'
 
@@ -21,7 +21,7 @@ const TextInput: React.FC<TextInputProps> = ({
   const id = placeholder ? stringToPascalCase(placeholder) : undefined
 
   return (
-    <div className={`text-input ${className}`}>
+    <div className={`text-input__container ${className}`}>
       {placeholder && (
         <label className='text-input__placeholder' htmlFor={id}>
           {placeholder}

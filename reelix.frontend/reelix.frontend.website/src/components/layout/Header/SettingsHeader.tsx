@@ -35,12 +35,15 @@ const SettingsHeader: React.FC<SettingsHeaderProps> = ({ title, isAdmin }) => {
         <div className='settings__scope-selector'>
           {isAdmin && (
             <>
-              <span className='settings__scope-label'>View settings as:</span>
+              {screenSize === 'small' && (
+                <span className='settings__scope-label'>View settings as:</span>
+              )}
               <Dropdown
                 className='settings__scope-dropdown'
                 options={settingsScopes}
                 defaultSelectedValue='user'
-                onChange={onDropdownChange}
+                onValueChange={onDropdownChange}
+                label={screenSize !== 'small' ? 'Viewing settings as' : undefined}
               />
             </>
           )}

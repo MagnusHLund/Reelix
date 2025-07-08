@@ -1,29 +1,45 @@
-.dropdown {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
-  border: 1px solid black;
-  border-radius: 1rem;
-  padding: 0.5rem 1rem;
-  padding-right: 2rem;
+.dropdown__container {
   width: 100%;
-
-  background-image: url('/black.png');
-  background-repeat: no-repeat;
-  background-position: right 0.5rem center;
-  background-size: 1rem;
-
-  &.transparent {
-    background-color: transparent;
+  .dropdown__label {
+    color: $accent-color;
+    transform: translateY(-1.2rem);
+    z-index: 1;
+    background-color: white;
+    border: 1px solid $accent-color;
+    padding: 0 5px;
+    border-radius: 1rem;
+    position: absolute;
+    margin-left: 1rem;
+    margin-top: 0.6rem;
+    pointer-events: none;
   }
-  &:hover {
-    background-color: rgba($color: #fff, $alpha: 0.1);
-  }
+  .dropdown__select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 
-  &__option {
-    width: 10%;
+    border: 1px solid $accent-color;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    padding-right: 2rem;
+    width: 100%;
+
+    background-image: url('/black.png');
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1rem;
+
+    &.transparent {
+      background-color: transparent;
+    }
+    &:hover {
+      background-color: rgba($color: #fff, $alpha: 0.9);
+    }
+    &:focus {
+      outline: none;
+    }
+    &__option {
+      width: 10%;
+    }
   }
 }
-
-// TODO: Re-style dropdown to appear like a text input, in terms of the placeholder text.
