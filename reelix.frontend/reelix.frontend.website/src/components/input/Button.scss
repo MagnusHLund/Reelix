@@ -1,11 +1,32 @@
-.button {
-  background-color: $accent-color;
-  cursor: pointer;
-  padding: 0.6rem;
-  border: 1px solid $secondary-color;
-  border-radius: 1rem;
+.button__container {
+  position: relative;
+  display: inline-flex;
+  justify-content: inherit;
 
-  &.transparent {
-    background-color: transparent;
+  .button__input {
+    background-color: $accent-color;
+    cursor: pointer;
+    padding: 0.6rem;
+    border: 1px solid $secondary-color;
+    border-radius: 1rem;
+    width: 100%;
+    height: 100%;
+
+    &.transparent {
+      background-color: transparent;
+    }
+  }
+  .button__content {
+    position: absolute;
+    //top: 50%;
+    //left: 50%;
+    //transform: translate(-50%, -50%);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: inherit;
+    width: fit-content;
+    height: fit-content;
+    z-index: 1;
   }
 }
