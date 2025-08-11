@@ -1,7 +1,54 @@
+import { selectMediaLibraries } from '../../../../redux/selectors/mediaLibrariesSelector'
+import { selectSettingsScope } from '../../../../redux/selectors/settingsSelectors'
+import { selectMyUser } from '../../../../redux/selectors/usersSelectors'
+import Button from '../../../input/Button'
+import { useSelector } from 'react-redux'
 import './MediaLibrarySettingsTab.scss'
+import Setting from '../Setting'
 
 const MediaLibrarySettingsTab: React.FC = () => {
-  return <div className='media-library-settings-tab__container'></div>
+  const myUser = useSelector(selectMyUser)
+  const settingsScope = useSelector(selectSettingsScope)
+  const mediaLibraries = useSelector(selectMediaLibraries)
+
+  return (
+    <div className='media-library-settings-tab__container'>
+      {settingsScope === 'admin' && myUser.role === 'admin' && (
+        <div>
+          <Setting title='Scan media libraries'>
+            <Button
+              onClick={() => {
+                /* TODO: Call API */
+              }}
+            >
+              Scan media libraries
+            </Button>
+          </Setting>
+          <Setting title='Media libraries'>
+            {mediaLibraries.map((mediaLibrary) => {
+              return (
+                <Button
+                  key={mediaLibrary.id}
+                  onClick={() => {
+                    /* TODO: Open modal for editing media library. IsEnabled, Whitelist, blacklist and age restriction. */
+                  }}
+                >
+                  {mediaLibrary.name}
+                </Button>
+              )
+            })}
+            <Button
+              onClick={() => {
+                /* TODO: Call API */
+              }}
+            >
+              Add media library
+            </Button>
+          </Setting>
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default MediaLibrarySettingsTab

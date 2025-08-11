@@ -11,10 +11,10 @@
     justify-content: center;
     align-items: center;
     .thumbnail__primary-text {
-      width: 90%;
+      max-width: 90%;
     }
     .thumbnail__secondary-text {
-      width: 90%;
+      max-width: 90%;
     }
   }
 }

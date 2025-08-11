@@ -18,12 +18,13 @@ type AllowedInputTypes =
   | 'select'
   | 'button'
   | 'file'
+  | 'image'
 
 type FormProps<T extends FieldValues> = {
   onSubmit: SubmitHandler<T>
   fields: {
     name: keyof T
-    label: string
+    label?: string
     type: AllowedInputTypes
     validation?: object
     errorMessage?: string
@@ -67,7 +68,7 @@ const Form = <T extends FieldValues>({
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className='form__element'>
-        {fields.map(({ name, validation, type, isAdminOnly, dropdownOptions }) => {
+        {fields.map(({ name, label, validation, type, isAdminOnly, dropdownOptions }) => {
           validation ??= { required: true }
 
           if (isAdminOnly && !isAdmin) {
@@ -76,26 +77,28 @@ const Form = <T extends FieldValues>({
           if (type === 'select') {
             return (
               <Dropdown
-                key={String(name)}
+                key={label ?? ''}
                 className='form__input'
                 options={dropdownOptions as DropdownOption[]}
                 {...register(name as Path<T>, validation)}
               />
             )
-          } else if (type === 'button' || type === 'file') {
+          } else if (type === 'button' || type === 'file' || type === 'image') {
             return (
               <Button
-                key={String(name)}
+                key={label ?? ''}
                 type='button'
                 className='form__input'
                 {...register(name as Path<T>, validation)}
-              />
+              >
+                {label ?? ''}
+              </Button>
             )
           } else {
             return (
               <TextInput
-                key={String(name)}
-                placeholder={String(name)}
+                key={label ?? ''}
+                placeholder={label ?? ''}
                 type={type}
                 className='form__input'
                 {...register(name as Path<T>, validation)}

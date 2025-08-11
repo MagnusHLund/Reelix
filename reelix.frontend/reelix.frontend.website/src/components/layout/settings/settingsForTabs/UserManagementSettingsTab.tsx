@@ -103,6 +103,12 @@ const UserManagementSettingsTab: React.FC = () => {
                   errorMessage: 'Username is required',
                 },
                 {
+                  name: 'email',
+                  label: 'Email',
+                  type: 'email',
+                  validation: { required: false },
+                },
+                {
                   name: 'password',
                   label: 'Password',
                   type: 'password',
