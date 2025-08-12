@@ -5,11 +5,16 @@ import Button from '../../../input/Button'
 import { useSelector } from 'react-redux'
 import './MediaLibrarySettingsTab.scss'
 import Setting from '../Setting'
+import MediaLibrarySettingsModal from '../../modals/MediaLibrarySettingsModal'
+import { MediaLibrary } from '../../../../redux/slices/mediaLibrariesSlice'
+import React, { useState } from 'react'
 
 const MediaLibrarySettingsTab: React.FC = () => {
   const myUser = useSelector(selectMyUser)
   const settingsScope = useSelector(selectSettingsScope)
   const mediaLibraries = useSelector(selectMediaLibraries)
+
+  const [mediaLibraryToShow, setMediaLibraryToShow] = useState<MediaLibrary | null>(null)
 
   return (
     <div className='media-library-settings-tab__container'>
@@ -24,13 +29,15 @@ const MediaLibrarySettingsTab: React.FC = () => {
               Scan media libraries
             </Button>
           </Setting>
-          <Setting title='Media libraries'>
+          <div title='Media libraries'>
             {mediaLibraries.map((mediaLibrary) => {
               return (
                 <Button
                   key={mediaLibrary.id}
                   onClick={() => {
                     /* TODO: Open modal for editing media library. IsEnabled, Whitelist, blacklist and age restriction. */
+                    setMediaLibraryToShow(mediaLibrary)
+                    console.log('headache')
                   }}
                 >
                   {mediaLibrary.name}
@@ -44,7 +51,13 @@ const MediaLibrarySettingsTab: React.FC = () => {
             >
               Add media library
             </Button>
-          </Setting>
+          </div>
+          {mediaLibraryToShow && (
+            <MediaLibrarySettingsModal
+              mediaLibrary={mediaLibraryToShow}
+              onClose={() => setMediaLibraryToShow(null)}
+            />
+          )}
         </div>
       )}
     </div>
