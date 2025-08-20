@@ -28,8 +28,6 @@ namespace ReelixApi
 
         private static void ConfigureApp(WebApplication app)
         {
-            app.UsePathBase("/api");
-
             if (app.Environment.IsDevelopment())
             {
                 ConfigureDevelopmentTools(app);
@@ -76,7 +74,7 @@ namespace ReelixApi
             app.UseSwaggerUI(options =>
             {
                 options.DocumentTitle = "Reelix API Documentation";
-                options.SwaggerEndpoint("/openapi/v1.json", "Reelix API");
+                options.SwaggerEndpoint("/api/openapi/v1.json", "Reelix API");
             });
         }
     }

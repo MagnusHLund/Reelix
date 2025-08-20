@@ -12,11 +12,11 @@ services:
 
   dev-web:
     build:
-      context: ./../reelix.frontend/reelix.website/
+      context: ./../reelix.frontend/reelix.frontend.website/
       dockerfile: ../../reelix.docker/dockerfiles/Dockerfile.web
     working_dir: /app
     volumes:
-      - ./../reelix.frontend/reelix.website/:/app
+      - ./../reelix.frontend/reelix.frontend.website/:/app
       - /app/node_modules
     ports:
       - 44141:44141 # Web port
