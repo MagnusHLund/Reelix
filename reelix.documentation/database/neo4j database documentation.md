@@ -3,51 +3,51 @@
 ## Ideas
 
 The project uses 2 databases.
-Most data is stored in a mysql database.
-Neo4j stores data related to calculating media recommendations, per user.
-Media can be both movies and series. Not individual series episodes or seasons.
+Most data is stored in a `MySQL` database.
+Neo4j stores data related to `calculating media recommendations`, per user.
+Media can be both `movies` and `series`. Not individual series episodes or seasons.
 All data in neo4j should be used to calculate recommendations, to provide the best results.
 Names are also stored in neo4j, to make it easier to read the data.
-Neo4j gets its string datatype IDs from MySQL. They are UUID's.
+Neo4j gets its `string datatype IDs` from `MySQL`. They are `UUID's`.
 
-The algorithm should be able to adapt to individual users, and pick up on changing interests.
+The `recommendation algorithm` should be able to `adapt to individual users`, and pick up on `changing interests`.
 So if a user never showed interest in animation, but suddenly started watching it, then it should experiment with showing animation media recommendations.
 If the experiment is successful, then it will adapt and know that the user likes animation, and perhaps likes something else less now.
-The algorithm will be doing automatic A/B testing, like that.
+The algorithm will be doing `automatic A/B testing`, like that.
 
 ### Age restrictions
 
-A user can has an age restriction.
-If a movie has a higher age rating, than the users age restriction, then it will not be recommended to that user.
-A user can have no relationship to a age rating system, which would mean that they are allowed to watch everything.
+A user can has an `age restriction`.
+If a movie has a higher age rating, than the users age restriction, then `it will not be recommended to that user`.
+A user can have no relationship to an age rating system, which would mean that they are not restricted by any media age ratings.
 
-The database only stores a single age rating system, which is determined by an administrator front-end, in settings.
-An overlap can occur, due to migrating to a new age rating system.
-In which case, the old age rating system will be removed from the database, after migration.
+The database only stores `a single age rating system`, which is determined by an `administrator`, in the `front-end settings`.
+An overlap can occur, due to `migrating to a new age rating system`.
+In which case, the old age rating system will be `removed` from the database, after migration.
 
-### Library restrictions
+### Media Library restrictions
 
-The user might not have access to a specific media library.
-If this is the case, then they will not be shown media, which are located within that media library.
+The user might `not have access` to a specific `media library`.
+If this is the case, then they `will not be shown media`, which are located within that media library.
 
 ### Movie ratings
 
-Movies will have ratings from rotten tomatoes and IMDb.
+Media will have ratings from external sources, such as `rotten tomatoes` and `IMDb`.
 
 ### Media release year
 
-The release year could be used, incase a user is more into old movies or newer movies.
+The release year could be used, in case a user is more into `old media` or `new media`.
 
 ### Tags and genres
 
-Movies can have multiple tags and genres. Users have tags and genres that they like.
-This can change overtime, based on what the user has watched.
+Media can have `multiple tags and genres`. `Users have relationships with tags and genres`.
+Users preferred tags and genres `can change over time` and it will be updated in the database.
 
 ### Watch list
 
-Users can add movies and series to their watch list.
-If a movie is on a watch list, it is likely to get recommended.
-Movies like it (similar tags and genres) can also be recommended.
+Users can `add media to their watch list`.
+If a movie is on a watch list, `it is likely to get recommended`.
+Media like it, `similar tags and genres`, can also be recommended.
 
 ### Language
 
@@ -92,6 +92,9 @@ title STRING
 releaseYear INT
 mediaType STRING // Series or movie
 
+The media node has` multiple labels`.
+These are `Movie:Media` and `Series:Media`.
+
 ### Tags node
 
 tagId INT
@@ -102,17 +105,7 @@ name STRING
 genreId INT
 name STRING
 
-### Actors node
-
-mediaContributorId STRING // UUID from MySQL
-name STRING
-
-### Directors node
-
-mediaContributorId STRING // UUID from MySQL
-name STRING
-
-### Writers node
+### Media contributors node
 
 mediaContributorId STRING // UUID from MySQL
 name STRING
@@ -197,9 +190,9 @@ lastUpdated indicates when a user last watched media with the given tag or genre
 
 #### Contributors - Actors, directors and writers
 
-(user)-[:ENGAGES_WITH_ACTOR {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(actor)
-(user)-[:ENGAGES_WITH_DIRECTOR {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(director)
-(user)-[:ENGAGES_WITH_WRITER {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(writer)
+(user)-[:ENGAGES_WITH_ACTOR {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(mediaContributor)
+(user)-[:ENGAGES_WITH_DIRECTOR {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(mediaContributor)
+(user)-[:ENGAGES_WITH_WRITER {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(mediaContributor)
 
 The media contributors share the same concept as tags and genres.
 A score which decays over time. Max score is 100, minimum score is 0.
@@ -268,9 +261,9 @@ There is no data within the relationship.
 
 #### Media
 
-(actor)-[:ACTED_IN]->(media)
-(director)-[:DIRECTED]->(media)
-(writer)-[:WROTE]->(media)
+(mediaContributor)-[:ACTED_IN]->(media)
+(mediaContributor)-[:DIRECTED]->(media)
+(mediaContributor)-[:WROTE]->(media)
 
 Contributors have relationships to media, which they contributed to.
 There is no data within the relationships themselves. They are just indicators.
