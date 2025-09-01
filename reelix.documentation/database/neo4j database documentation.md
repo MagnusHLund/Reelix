@@ -141,7 +141,7 @@ mediaLibraryType **STRING** // Movies or series
 
 #### Media libraries
 
-```
+```cypher
 (user)-[:HAS_ACCESS_TO {updatedAt: DATETIME}]->(mediaLibrary)
 ```
 
@@ -151,7 +151,7 @@ Otherwise, the media is off limits to that specific user.
 
 #### Age restrictions
 
-```
+```cypher
 (user)-[:HAS_AGE_RESTRICTION {updatedAt: DATETIME}]->(ageRating)
 ```
 
@@ -161,7 +161,7 @@ The user will only get **recommended media which has the same ageRestriction, or
 
 #### Wants to watch
 
-```
+```cypher
 (user)-[:WANTS_TO_WATCH {addedAt: DATETIME}]->(media)
 ```
 
@@ -171,7 +171,7 @@ if it was added to the watchlist long ago, then it probably isn't super interest
 
 #### Watched
 
-```
+```cypher
 (user)-[:WATCHED {watchCount: FLOAT, firstWatchedAt DATETIME, lastWatchedAt: DATETIME, averageDaysBetweenWatch: FLOAT}]->(media)
 ```
 
@@ -181,7 +181,7 @@ But a user might also have **media that they like to watch a lot**.
 
 #### Rated
 
-```
+```cypher
 (user)-[:RATED {score: INT, ratedAt: DATETIME}]->(media)
 ```
 
@@ -191,7 +191,7 @@ The datetime is also relevant to recommendations. A new like is "**worth**" more
 
 #### Tags and Genres
 
-```
+```cypher
 (user)-[:ENGAGES_WITH_TAG {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(tag)
 (user)-[:ENGAGES_WITH_GENRE {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(genre)
 ```
@@ -203,7 +203,7 @@ lastUpdated indicates **when a user last watched media** with the given tag or g
 
 #### Contributors - Actors, directors and writers
 
-```
+```cypher
 (user)-[:ENGAGES_WITH_ACTOR {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(mediaContributor)
 (user)-[:ENGAGES_WITH_DIRECTOR {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(mediaContributor)
 (user)-[:ENGAGES_WITH_WRITER {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(mediaContributor)
@@ -216,7 +216,7 @@ A datetime which indicates **when the user last watched media in which the contr
 
 #### Language - audio and subtitles
 
-```
+```cypher
 (user)-[:ENGAGES_WITH_AUDIO_LANGUAGE {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(language)
 (user)-[:ENGAGES_WITH_SUBTITLE_LANGUAGE {score: FLOAT, watchCount: INT, lastUpdated: DATETIME}]->(language)
 ```
@@ -229,7 +229,7 @@ The recommendation algorithm uses **both the relationship** and **2 float values
 
 #### Media Libraries
 
-```
+```cypher
 (media)-[:BELONGS_TO]->(mediaLibrary)
 ```
 
@@ -238,7 +238,7 @@ This relationship **prevents users** from getting recommendations to media, whic
 
 #### Age restrictions
 
-```
+```cypher
 (media)-[:HAS_AGE_RATING {updatedAt: DATETIME}]->(ageRating)
 ```
 
@@ -250,7 +250,7 @@ It could have changed since the last fetch.
 
 #### External Ratings
 
-```
+```cypher
 (media)-[:HAS_EXTERNAL_RATING {sourceType: STRING, score: FLOAT, lastUpdated: DATETIME}]->(externalRatingSource)
 ```
 
@@ -266,7 +266,7 @@ The lastUpdated datetime is used to keep track of when its time to **request new
 
 ### Tags and genres
 
-```
+```cypher
 (media)-[:HAS_TAG]->(tag)
 (media)-[:HAS_GENRE]->(genre)
 ```
@@ -276,7 +276,7 @@ The relationship between media and tags/genres are pretty straight forward.
 
 #### Language - audio and subtitles
 
-```
+```cypher
 (media)-[:HAS_AUDIO_LANGUAGE]->(language)
 (media)-[:HAS_SUBTITLE_LANGUAGE]->(language)
 ```
@@ -288,7 +288,7 @@ There is no data within the relationship.
 
 #### Media
 
-```
+```cypher
 (mediaContributor)-[:ACTED_IN]->(media)
 (mediaContributor)-[:DIRECTED]->(media)
 (mediaContributor)-[:WROTE]->(media)
