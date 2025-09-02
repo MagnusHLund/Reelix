@@ -2,6 +2,8 @@
 
 ## Ideas
 
+### Overall
+
 The project uses 2 databases.
 Most data is stored in a **MySQL database**.  
 Neo4j stores data related to **calculating media recommendations**, per user.  
@@ -102,6 +104,8 @@ FOR (u:User)
 REQUIRE u.username IS UNIQUE;
 ```
 
+---
+
 ### Media node
 
 #### Properties
@@ -136,6 +140,8 @@ FOR (m:Media)
 ON (m.releaseYear);
 ```
 
+---
+
 ### Tags node
 
 #### Properties
@@ -157,6 +163,8 @@ FOR (t.Tag)
 REQUIRE t.name IS UNIQUE;
 ```
 
+---
+
 ### Genres node
 
 #### Properties
@@ -177,6 +185,8 @@ CREATE CONSTRAINTS genre_name_unique IF NOT EXISTS
 FOR (g:Genre)
 REQUIRE g.name IS UNIQUE;
 ```
+
+---
 
 ### Media contributors node
 
@@ -202,6 +212,8 @@ CREATE INDEX contributor_name_index IF NOT EXISTS
 FOR (c:MediaContributor)
 ON (c.name);
 ```
+
+---
 
 ### External ratings node
 
@@ -229,6 +241,8 @@ FOR (r:ExternalRatingSource)
 ON (r.source);
 ```
 
+---
+
 ### Language node
 
 #### Properties
@@ -249,6 +263,8 @@ CREATE CONSTRAINT language_name_unique IF NOT EXISTS
 FOR (l:Language)
 REQUIRE l.name IS UNIQUE;
 ```
+
+---
 
 ### Age rating node
 
@@ -280,6 +296,8 @@ CREATE INDEX age_rating_value_index IF NOT EXISTS
 FOR (a:AgeRating)
 ON (a.rating);
 ```
+
+---
 
 ### Media libraries node
 
@@ -337,6 +355,8 @@ Some media libraries might **not be accessible to all users**.
 If a user has a relationship to a media library, then they are allowed to watch media from that library.  
 Otherwise, the media is off limits to that specific user.
 
+---
+
 #### Age restrictions
 
 ##### Relationship
@@ -358,6 +378,8 @@ ON (r.updatedAt);
 A user has a relationship to an ageRating node.  
 The ageRating node has a property called "**ageRestriction**".  
 The user will only get **recommended media which has the same ageRestriction, or below**.
+
+---
 
 #### Wants to watch
 
@@ -381,6 +403,8 @@ A user adds media to their watchlist.
 Recommendations are **influenced by the date on media was added to the watch list**.  
 if it was added to the watchlist long ago, then it probably isn't super interesting anymore.
 
+---
+
 #### Watched
 
 ##### Relationship
@@ -403,6 +427,8 @@ Tracks which movies or series that a user has **watched recently and in total**.
 Helps to **not recommend the same media**, that a user has just consumed.  
 But a user might also have **media that they like to watch a lot**.
 
+---
+
 #### Rated
 
 ##### Relationship
@@ -424,6 +450,8 @@ ON (r.ratedAt);
 A user can **rate movies**. The score is either **-1 for dislike** or **1 for like**.  
 If a user removes a like or dislike, the relationship is removed. There is no **0** value, for liking.  
 The datetime is also relevant to recommendations. A new like is "**worth**" more than an old like, from years ago.
+
+---
 
 #### Tags and Genres
 
@@ -452,6 +480,8 @@ Tags and genres work in the same way, in terms of relationship from the user to 
 **A decaying score from 0 to 100**, which indicates how much they like the tag or genre.  
 The **watch count indicates how much media a user has consumed**, with the given tag or genre.  
 lastUpdated indicates **when a user last watched media** with the given tag or genre.
+
+---
 
 #### Contributors - Actors, directors and writers
 
@@ -486,6 +516,8 @@ The media contributors share the same concept as tags and genres.
 The total times watched of media **which a contributor is part of**.  
 A datetime which indicates **when the user last watched media in which the contributor is part of**.
 
+---
+
 #### Language - audio and subtitles
 
 ##### Relationship
@@ -513,6 +545,8 @@ A user should be recommended **the language that they prefer to hear or read**.
 If a user **does not** engage with X-language content, then a user **should be recommended** Y-language content instead of X-language.  
 The recommendation algorithm uses **both the relationship** and **2 float values**, stored on the user node, which **stores the importance of subtitles vs audio**.
 
+---
+
 ### Media relationships
 
 #### Media Libraries
@@ -527,6 +561,8 @@ The recommendation algorithm uses **both the relationship** and **2 float values
 
 Each novie or series can only have one media library. There can be **multiple libraries**, each containing its own media.
 This relationship **prevents users** from getting recommendations to media, which is **located inside media libraries that they do not have access to**.
+
+---
 
 #### Age restrictions
 
@@ -551,6 +587,8 @@ If the movie has a higher age restriction than the user, **then the movie will n
 
 The datetime can be used to see if its **time to fetch new data**, in relation to the age restriction of media.  
 It could have changed since the last fetch.
+
+---
 
 #### External Ratings
 
@@ -580,6 +618,8 @@ E.g. 3 of 6 stars = 50 out of 100 = 50% rating.
 
 The lastUpdated datetime is used to keep track of when its time to **request new ratings from the external source**.
 
+---
+
 ### Tags and genres
 
 ##### Relationship
@@ -594,6 +634,8 @@ The lastUpdated datetime is used to keep track of when its time to **request new
 The relationship between media and tags/genres are pretty straight forward.  
 **No data is stored in the relationship**. It is just a simple indicator, that the movie has a specific tag or genre.
 
+---
+
 #### Language - audio and subtitles
 
 ##### Relationship
@@ -607,6 +649,8 @@ The relationship between media and tags/genres are pretty straight forward.
 
 Media has **relationships to languages**, indicating that they have **audio and/or subtitles** in a specific language.  
 There is no data within the relationship.
+
+---
 
 ### Contributors - Actors, director and writers
 
