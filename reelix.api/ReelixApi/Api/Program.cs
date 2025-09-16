@@ -44,7 +44,7 @@ namespace ReelixApi
 
         private static void ConfigureDatabase(IServiceCollection services)
         {
-            // TODO: Register MySQL & Neo4j DB contexts
+            // TODO: Register MariaDB & Neo4j DB contexts
         }
 
         private static void ConfigureDependencyInjection(IServiceCollection services)

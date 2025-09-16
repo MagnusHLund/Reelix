@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ReelixApi.Api.Controllers
 {
-    public class AuthController
+    public class ImagesController
     {
 
     }

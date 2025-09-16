@@ -34,19 +34,22 @@ services:
     ports:
       - 48454:48454 # API port
       - 5678:5678 # Debug port
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_WATCH_RESTART_ON_RUDE_EDIT=1
     restart: unless-stopped
 
-  dev-mysql:
-    image: mysql:latest
+  dev-mariadb:
+    image: mariadb:latest
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: your_database
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: reelix
+      MARIADB_USER: user
+      MARIADB_PASSWORD: password
     ports:
-      - 3306:3306 # MySQL port
+      - 3306:3306 # MariaDB port
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
     restart: unless-stopped
 
   dev-neo4j:
@@ -61,5 +64,5 @@ services:
     restart: unless-stopped
 
 volumes:
-  mysql_data:
+  mariadb_data:
   neo4j_data:
