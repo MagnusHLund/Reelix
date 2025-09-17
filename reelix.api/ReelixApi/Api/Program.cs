@@ -1,4 +1,8 @@
-namespace ReelixApi
+using ReelixApi.Application;
+using ReelixApi.Domain;
+using ReelixApi.Infrastructure;
+
+namespace ReelixApi.Api
 {
     public static class Program
     {
@@ -49,13 +53,9 @@ namespace ReelixApi
 
         private static void ConfigureDependencyInjection(IServiceCollection services)
         {
-            // TODO: Register dependency injection
-
-            // Scoped
-
-            // Transient
-
-            // Singleton
+            services.AddDomainServices();
+            services.AddApplicationServices();
+            services.AddInfrastructureServices();
         }
 
         private static void ConfigureLogging(IServiceCollection services)

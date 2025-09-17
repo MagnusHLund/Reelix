@@ -16,6 +16,7 @@
     "[csharp]": {
       "editor.defaultFormatter": "ms-dotnettools.csharp"
     },
-    "cSpell.words": ["reelix"]
+    "cSpell.words": ["reelix"],
+    "powershell.cwd": "Reelix API"
   }
 }

@@ -5,9 +5,10 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>false</InvariantGlobalization>
-    <StartupObject>ReelixApi.Program</StartupObject>
+    <StartupObject>ReelixApi.Api.Program</StartupObject>
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <RootNamespace>ReelixApi.Api</RootNamespace>
   </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\Application\Application.csproj" />
