@@ -1,0 +1,245 @@
+name: PR AI code review (Ollama)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.svg'
+
+jobs:
+  review:
+    # Use self-hosted so we can reach your Ollama instance on the LAN
+    runs-on: [self-hosted, linux, ollama]
+
+    env:
+      OLLAMA_BASE_URL: ${{ secrets.AI_SERVER_HOSTNAME }}  
+      OLLAMA_MODEL: gpt-oss:20b
+      OLLAMA_AUTH: ${{ secrets.OLLAMA_AUTH }} 
+      # Context controls
+      MAX_FILES: "80"
+      MAX_BYTES_PER_FILE: "200000"      # ~200 KB/file upper bound
+      MAX_TOTAL_BYTES: "1500000"        # ~1.5 MB across all chunks
+      NUM_CTX: "32768"
+      TEMPERATURE: "0.2"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install jq
+        run: |
+          if ! command -v jq >/dev/null; then
+            sudo apt-get update -y
+            sudo apt-get install -y jq
+          fi
+
+      - name: Determine changed files
+        id: changes
+        run: |
+          base_sha="${{ github.event.pull_request.base.sha }}"
+          head_sha="${{ github.event.pull_request.head.sha }}"
+          git diff --name-only --diff-filter=ACMR "$base_sha" "$head_sha" \
+            | grep -E '\.(cs|csproj|sln|json|yml|yaml|ts|tsx|js|jsx|go|rs|py|sql)$' \
+            | head -n "${MAX_FILES}" > changed_files.txt || true
+
+          echo "Changed files:"
+          cat changed_files.txt || true
+
+      - name: Assemble context payload
+        id: context
+        run: |
+          total=0
+          echo "" > context.txt
+
+          add_file() {
+            f="$1"
+            [ -f "$f" ] || return 0
+            bytes=$(wc -c < "$f" | tr -d ' ')
+            if [ "$bytes" -gt "${MAX_BYTES_PER_FILE}" ]; then
+              # Truncate big files but keep head + tail for signal
+              head -c $((MAX_BYTES_PER_FILE/2)) "$f" > /tmp/file_head
+              echo -e "\n/* ... truncated ... */\n" > /tmp/file_mid
+              tail -c $((MAX_BYTES_PER_FILE/2)) "$f" > /tmp/file_tail
+              cat /tmp/file_head /tmp/file_mid /tmp/file_tail > /tmp/file_trunc
+              bytes="${MAX_BYTES_PER_FILE}"
+              content_path="/tmp/file_trunc"
+            else
+              content_path="$f"
+            fi
+
+            if [ $((total + bytes)) -gt "${MAX_TOTAL_BYTES}" ]; then
+              return 1
+            fi
+            {
+              echo ""
+              echo "===== FILE: $f ====="
+              echo '```'
+              cat "$content_path"
+              echo '```'
+            } >> context.txt
+            total=$((total + bytes))
+            return 0
+          }
+
+          # Include high-signal files first
+          for f in $(cat changed_files.txt | sort -V); do
+            add_file "$f" || break
+          done
+
+          # Optionally include key architectural anchors to help DDD review
+          anchor_files=$(git ls-files \
+            | grep -E '(Domain|Application|Infrastructure|Api|Web|Plugins|Modules|BoundedContexts|UseCases|Aggregates|Entities|ValueObjects|Repositories|Migrations|Mapping|CompositionRoot|Startup|Program\.cs)$' || true)
+
+          for f in $anchor_files; do
+            # Skip if already included
+            if grep -q "===== FILE: $f =====" context.txt 2>/dev/null; then continue; fi
+            add_file "$f" || break
+          done
+
+          echo "Total context bytes: $total"
+          echo "context_path=context.txt" >> "$GITHUB_OUTPUT"
+
+      - name: Build prompt
+        id: prompt
+        run: |
+          pr_title="${{ github.event.pull_request.title }}"
+          pr_body="${{ github.event.pull_request.body }}"
+          branch="${{ github.head_ref }}"
+          author="${{ github.event.pull_request.user.login }}"
+
+          cat > system.txt << 'SYS'
+You are a senior software architect and code reviewer.
+Your responsibilities:
+- Enforce Domain-Driven Design (DDD) and clean architecture: clear bounded contexts, aggregates, entities, value objects, repositories, application services, and anti-corruption layers.
+- Maintain separation of concerns between Domain, Application, Infrastructure, and Presentation layers. No domain leakage of technical details.
+- Guard invariants and transactional boundaries. Flag places where invariants can be violated or aggregate boundaries are crossed incorrectly.
+- Ensure testability: unit tests around domain logic; meaningful seams and ports for integration boundaries.
+- Enforce code quality: clarity, naming, readability, comments only where necessary, and consistent conventions.
+- Security and reliability: input validation, error handling, logging strategy, idempotency for commands, and safe defaults.
+- Performance pragmatism: highlight hot paths, allocations, and N+1 risks—without premature micro-optimizations.
+- Keep feedback constructive, specific, and actionable; prefer concrete diffs and examples.
+Answer in professional, concise prose—no roleplay, no fluff. Use the output format strictly.
+SYS
+
+          cat > output_format.txt << 'OUT'
+Return a single Markdown document with these sections:
+
+## Summary
+- **Verdict:** (Approve | Request changes)
+- **Reasons:** A tight 2–4 bullet justification focused on DDD and correctness.
+
+## High-impact findings
+- **Issue:** (Short title)
+  - **Why it matters:** (DDD or correctness risk)
+  - **Evidence:** (File, line or snippet)
+  - **Recommendation:** (Concrete fix; include example code if brief)
+
+## DDD architecture review
+- **Bounded contexts:** (Are responsibilities coherent? Any bleeding between contexts?)
+- **Aggregates and invariants:** (Aggregate roots, invariants, transaction boundaries)
+- **Domain vs infrastructure:** (Any leakage, anemic domain smells, misplaced logic)
+- **Application services/use cases:** (Command/query boundaries, idempotency)
+- **Repositories and mapping:** (Abstractions, persistence coupling)
+- **Module/plugin boundaries:** (Extensibility points, contracts, versioning)
+- **Testing strategy:** (What to test at which level; critical gaps)
+
+## Style and maintainability
+- **Naming & structure:** (Clarity, long-term readability)
+- **Error handling & logging:** (Consistency, signal-to-noise)
+- **Security considerations:** (Input validation, secrets, authz)
+- **Performance notes:** (Only where relevant, avoid premature tuning)
+
+## Suggested follow-up tasks
+- [ ] (Actionable, owner, scope)
+OUT
+
+          # Build user message with PR metadata + context
+          {
+            echo "PR title: ${pr_title}"
+            echo "PR author: ${author}"
+            echo "Branch: ${branch}"
+            echo ""
+            echo "PR description:"
+            echo "${pr_body}"
+            echo ""
+            echo "Repository context (selected files and diffs):"
+            cat "${{ steps.context.outputs.context_path }}"
+          } > user.txt
+
+          # Compose JSON for Ollama chat API
+          jq -n \
+            --arg model "${OLLAMA_MODEL}" \
+            --arg system "$(cat system.txt)" \
+            --arg user "$(cat user.txt)" \
+            --argjson options "{ \"temperature\": ${TEMPERATURE}, \"num_ctx\": ${NUM_CTX} }" \
+            '{
+              model: $model,
+              messages: [
+                { role: "system", content: $system },
+                { role: "user", content: $user }
+              ],
+              options: $options,
+              stream: false
+            }' > payload.json
+
+          echo "payload=payload.json" >> "$GITHUB_OUTPUT"
+
+      - name: Call Ollama
+        id: ollama
+        shell: bash
+        run: |
+          set -e
+          echo "Calling Ollama at ${OLLAMA_BASE_URL}"
+          authHeader=""
+          if [ -n "${OLLAMA_AUTH}" ]; then
+            authHeader="-H '${OLLAMA_AUTH}'"
+          fi
+          # shellcheck disable=SC2086
+          response=$(bash -lc "curl -sS -X POST ${OLLAMA_BASE_URL%/}/api/chat \
+            -H 'Content-Type: application/json' $authHeader \
+            --data @${{ steps.prompt.outputs.payload }}")
+          echo "$response" > ollama_response.json
+
+          # Extract assistant content; Ollama returns { message: { role, content }, done: true } or a messages list depending on model
+          content=$(jq -r '.message.content // .messages[-1].content // .response // empty' ollama_response.json)
+          if [ -z "$content" ]; then
+            echo "Failed to parse model response"
+            echo "content=" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+          # Limit to avoid comment size limits (~65k)
+          echo "$content" | head -c 120000 > review.md
+          echo "content_path=review.md" >> "$GITHUB_OUTPUT"
+
+      - name: Post PR comment
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('review.md', 'utf8');
+            const { owner, repo, number } = context.issue;
+            // Upsert a comment keyed to this job
+            const marker = '<!-- ai-ollama-review -->';
+            const list = await github.rest.issues.listComments({ owner, repo, issue_number: number, per_page: 100 });
+            const prev = list.data.find(c => c.body && c.body.includes(marker));
+            const newBody = `${marker}\n` + body;
+            if (prev) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: prev.id, body: newBody });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number: number, body: newBody });
+            }
+
+      - name: Add job summary
+        if: always()
+        run: |
+          echo "## AI Review Summary" >> $GITHUB_STEP_SUMMARY
+          if [ -f review.md ]; then
+            cat review.md >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No content produced." >> $GITHUB_STEP_SUMMARY
